@@ -1,0 +1,344 @@
+body {
+    margin: 0;
+    font: 12px/1.5 "Microsoft Yahei", Tahoma, SimSun, Verdana;
+    overflow: hidden;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: content-box;
+}
+i:focus,a:focus {
+    outline: none
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+a:hover {
+    text-decoration: none;
+}
+.checkbox {
+    margin:0
+}
+p, ul, input {
+    padding: 0;
+    margin: 0;
+}
+li {
+    list-style: none;
+}
+strong, i{
+    font-style: normal;
+    font-weight: normal;
+}
+.clearfix:after {
+    content: "";
+    display: block;
+}
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.icon {
+    display: inline-block;
+}
+.hide {
+    display: none;
+}
+.magnify-stage {
+    border:0
+}
+.lightbox{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 7;
+    opacity: 0.3;
+    display: block;
+    background-color: rgb(0, 0, 0);
+    display: none;
+}
+.pop,iframe{
+    position: absolute;
+    left: 50%;
+    top:0;
+    width: 893px;
+    height: 100%;
+    margin-left: -446.5px;
+    z-index: 9;
+}
+#divDocPro .ellipsis,
+#newCustomProp .ellipsis,
+#selectProp .ellipsis
+ {
+    width: 20%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle
+}
+#divDocPro ul .form-control,
+#newCustomProp ul .form-control,
+#divaddUser ul .form-control
+{
+    width: 60%;
+    height: 16px;
+    display: inline-block
+}
+#divDocPro ul .newBtn {
+    padding: 5px;
+    position: relative;
+    top: -1px;
+    background: #d52c2c;
+    border: 1px solid #d52c2c;
+}
+#divDocPro .form-control{
+    width: 60%;
+    height: 16px;
+    display: inline-block
+}
+#selectProp #someProp {
+    width: 40%;
+    height: 16px;
+    display: inline-block
+}
+
+#newProp {
+    width: 17%;
+    padding: 5px;
+    position: relative;
+    top: -3px;
+}
+
+table .center {
+    text-align: center
+}
+.icon-remove {
+    color: #d52c2c
+}
+.icon-edit {
+    color: #0070c0
+}
+.icon-key {
+    color:#66afe9
+}
+
+#user_list_wrapper {
+    position: relative;
+    width: 100%;
+    /* height: 500px; */
+    height: 120px;
+    clear: both;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.dataTables_processing {
+    z-index: 9999;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    width: 250px;
+    margin-left: -125px;
+    border: 1px solid #ddd;
+    text-align: center;
+    /* color: #999; */
+    font-size: 11px;
+    padding: 5px 0;
+    background: rgb(147, 147, 147);
+    color: rgb(238, 238, 238);
+    border-radius: 20px;
+}
+#divaddUser:focus,
+#divPassword:focus{
+    outline: none
+}
+#divaddUser label,
+#divPassword label,
+#divCombind label
+{
+    display: inline-block;
+    max-width: 100%;
+    width: 50px;
+    margin-bottom: 5px;
+    /* font-weight: 700; */
+    vertical-align: middle;
+    font-size: 12px;
+    margin-right: 15px
+}
+#divPassword label{
+    width: 60px;
+}
+#divaddUser .form-control,
+#divPassword .form-control{
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+#divaddUser .form-control:focus,
+#divPassword .form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+#divKeyUser:focus {
+    outline: 0;
+}
+.ikey {
+    position: relative;
+    top: -3px;
+    left: 3px;
+}
+.lkey {
+    display: inline-block;
+    font-size: 12px;
+}
+#frmUser label.error {
+    width: 150px;
+    color: red
+}
+#frmUser label.valid {
+    width: 20px;
+    color: green
+}
+/* html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+dl,
+dt,
+dd,
+ol,
+nav ul,
+nav li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+input {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+ol,
+ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+} */

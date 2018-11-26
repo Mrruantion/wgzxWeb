@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>docCloud文档管理云平台</title>
+
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/datatable.css" rel="stylesheet">
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="js/magnify/dist/jquery.magnify.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/page.css">
+    <link href="js/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    <link href="js/dateTimePicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="css/comfirm.css"> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .nav-collects>div {
+            float: left;
+        }
+
+        .nav-collects>div:first-child select {
+            box-sizing: border-box;
+            margin-bottom: 0px;
+            height: 34px;
+            width: 150px;
+        }
+
+        .nav-collects>div:first-child select:focus {
+            outline: none
+        }
+
+        .date {
+            width: 185px;
+            font-size: 13px;
+            display: inline-block;
+            letter-spacing: normal;
+            font-size: 0px;
+        }
+
+        #datetime .add-on {
+            /* display: inline-block;
+            width: auto; */
+            height: 24px;
+            /* position: relative;
+            top: -2px;
+            min-width: 16px;
+            padding: 4px 5px;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 20px;
+            text-align: center;
+            text-shadow: 0 1px 0 #fff;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 0 4px 4px 0; */
+        }
+
+        .date .form-control {
+            box-sizing: border-box;
+            font-size: 13px;
+            display: inline-block;
+            height: 34px;
+            width: 80%;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .frmDocumentAssign {
+            overflow-x: auto;
+            overflow-y: auto;
+            width: 280px;
+            height: 150px;
+            border: solid 1px #ccc;
+            margin-left: 50px;
+        }
+
+        #divDocumentAssign:focus,
+        #divDocAudit:focus {
+            outline: none
+        }
+
+        .quNumber {
+            width: 18%;
+        }
+
+        #frmDocumentAssign .controls {
+            margin-left: 84px;
+        }
+        .main .nav .nav-collects {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 微云 -->
+    <div class="weiyun">
+        <!-- 头部 -->
+        <% include html/header.html %>
+        <!-- 主要内容区 -->
+        <div class="weiyun-content">
+            <!-- 左侧菜单区 -->
+            <div class="lay-aside">
+                <div id="_search_bar" class="mod-search">
+                    <div class="search-panel">
+                        <div class="search-input">
+                            <input id="search" placeholder="搜索全部" autocomplete="off" type="text" aria-label="输入文件名并按下回车进行搜索"
+                                tabindex="0" class="mod-input">
+                        </div>
+                        <div class="search-placeholder">
+                            <i class="icon icon-searchs"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="aside-box">
+                    <div class="aside-wrap">
+                        <ul class="nav-box">
+
+                            <li class="nav-list summary">
+                                <a href="/summary" class="link doc" title="首页">
+                                    <i></i>首页</a>
+                            </li>
+                            <li class="nav-list file ">
+                                <a href="/file" class="link all" title="目录">
+                                    <i></i>目录</a>
+                            </li>
+                            <li class="nav-list hightSearch">
+                                <a href="/hightSearch" class="link pic" title="检索">
+                                    <i></i>检索</a>
+                            </li>
+                            <li class="nav-list report nav-current">
+                                <a href="/report" class="link" title="报表">
+                                    <i class="icon-bar-chart"></i>报表</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 右侧内容区域 -->
+            <div class="main">
+                <!-- 工具菜单导航 -->
+                <div class="nav">
+                    <nav class="nav-collects clearfix" style="padding-top: 7px;overflow: hidden;">
+                        <!-- <div class="upload-ff"> -->
+                        <div class="" style="display:inline-block">
+                            <!-- <span>类型</span> -->
+                            <select class="form-control" style="box-sizing: border-box;" id="typeSelect">
+                                <option value="1">分类统计表</option>
+                                <option value="2">位置统计表</option>
+                                <option value="3">时间统计表</option>
+                                <option value="4">案卷汇总表</option>
+                                <option value="5">系统日志</option>
+                            </select>
+                        </div>
+                        <!-- </div> -->
+                        <!-- <div id="buttonSelect"> -->
+                        <div style="margin-left: 10px;display: none" id="datetime">
+                            <div class="input-append date" style="width: 80px" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss">
+                                <select class="form-control" style="box-sizing: border-box;border-radius: 4px;" id="timeType">
+                                    <option value="1">年</option>
+                                    <option value="2">月</option>
+                                </select>
+                            </div>
+                            <div class="input-append date endTime" style="width: 140px" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss">
+                                <input class="form-control" size="16" type="text" value="">
+                                <span class="add-on">
+                                    <i class="icon-th"></i>
+                                </span>
+                            </div>
+                            <button class="btn btn-primary" style="position: relative;top: -5px" id="dateQuery">查询</button>
+                        </div>
+                        <div style="margin-left: 10px">
+                            <button class="btn btn-primary" id="classify" style="position: relative;top: 1px">选择分类</button>
+                        </div>
+                        <div style="margin-left: 10px;display: none">
+                            <button class="btn btn-primary" id="position" style="position: relative;top: 1px">选择位置</button>
+                        </div>
+                        <div style="margin-left: 10px;display: none">
+                            <button class="btn btn-primary" id="export" style="position: relative;top: 1px">导出</button>
+                        </div>
+                        <!-- </div> -->
+
+                    </nav>
+                </div>
+                <!-- 主要内容展示区 -->
+                <div class="content clearfix" style="padding: 20px;overflow: auto;">
+                    <table class="table table-hover table-striped table-bordered" width="100%" cellpadding="0"
+                        cellspacing="0" border="0" id="doc_list">
+                        <thead>
+                            <tr class="tops">
+                                <!-- <th width="20px" style="text-align: center !important;">
+                                        <input id="checkAll" type="checkbox">
+                                    </th> -->
+                                <th width="10px" style="">
+                                    序号
+                                </th>
+                                <th width="120px" style="">
+                                    分类名
+                                </th>
+                                <th width="120px">
+                                    案卷数量
+                                </th>
+                                <!-- <th width="120px">
+                                        创建时间
+                                    </th> -->
+                                <!-- <th width="90px">
+                                        操作
+                                    </th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 提示信息 -->
+    <div class="full-tip-box">
+        <span class="full-tip">
+            <span class="inner">
+                <i class="ico"></i>
+                <span class="text" data-id="label">新建文件夹成功!</span>
+            </span>
+        </span>
+    </div>
+
+    <div class="dialogDivP hide">
+        <% include dialog/frmDocAssign.html %>
+        <% include dialog/frmPassword.html %>
+    </div>
+
+    <div id="divPosition" style="display: none">
+        <div style="margin-top: 10px">
+            <ul>
+                <li style="margin-top: 10px">
+                    <!-- <label class="ellipsis">位置</label> -->
+                    <div class="quNumber">
+                        <span class="quNumberName">区号</span>
+                        <input class="form-control" id="qnum" style="width: 100%;padding:3px;font-size: 14px;box-sizing: border-box;">
+                    </div>
+                    <div class="quNumber">
+                        <span class="quNumberName">列号</span>
+                        <input class="form-control" id="lnum" style="width: 100%; padding:3px;font-size: 14px;box-sizing: border-box;">
+
+                    </div>
+                    <div class="quNumber">
+                        <span class="quNumberName">节号</span>
+                        <input class="form-control" id="jnum" style="width: 100%;padding:3px;font-size: 14px;box-sizing: border-box;">
+
+                    </div>
+                    <div class="quNumber">
+                        <span class="quNumberName">层号</span>
+                        <input class="form-control" id="cnum" style="width: 100%;padding:3px;font-size: 14px;box-sizing: border-box;">
+                    </div>
+                    <div class="quNumber">
+                        <span class="quNumberName">左/右侧</span>
+                        <select class="form-control" id="ce" style="width: 100%;padding:3px;box-sizing: border-box;margin-bottom: 0;">
+                            <option value="1">左</option>
+                            <option value="0">右</option>
+                        </select>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <script src="js/jquery/jquery-1.12.4.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script> -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/bootstrap/jquery-migrate-1.2.1.js"></script>
+    <script src="js/jquery/jquery-ui.js"></script>
+    <script src="js/jquery.dataTables.js"></script>
+    <script src="js/bootstrap.dataTable.js"></script>
+    <script type="text/javascript" src="js/zTree/js/jquery.ztree.core-3.4.min.js"></script>
+    <script type="text/javascript" src="js/zTree/js/jquery.ztree.excheck-3.4.min.js"></script>
+    <script type="text/javascript" src="js/dateTimePicker/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+
+    <script type="text/javascript" src="js/dateTimePicker/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/magnify/dist/jquery.magnify.js"></script>
+    <script src="js/jquery/jquery.cookie.js"></script>
+    <script src="js/js-spark-md5/spark-md5.min.js"></script>
+    <script src="js/wistorm/localApi.js"></script>
+    <script src="js/system.js"></script>
+    <script src="js/wistorm/md5.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/handledata.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/htmlTemplate.js"></script>
+    <script src="js/csv2arr/papaparse.js"></script>
+    <script src="js/csv2arr/jschardet.js"></script>
+    <script src="js/csv2arr/csv2arr.js"></script>
+    <script src="js/csv2arr/xlsx.full.min.js"></script>
+    <script src="js/account.js"></script>
+
+    <script src="js/report.js"></script>
+    <!-- <script src="js/upload.js"></script> -->
+</body>
+
+</html>

@@ -1,0 +1,1799 @@
+
+.icon {
+    display: inline-block
+}
+
+.mod-tasks .icon-window-fold {
+    width: 20px;
+    height: 20px;
+    background-image: url(../img/task-manager/icon-window-fold.svg);
+    position: relative;
+    top: 5px;
+}
+
+.mod-tasks .icon-close {
+    width: 20px;
+    height: 20px;
+    background-image: url(../img/task-manager/icon-all-close.svg)
+}
+
+.mod-tasks .icon-safebox-logo {
+    width: 168px;
+    height: 171px;
+    background-image: url(../img/svg/img-safebox.svg);
+    margin-right: 30px
+}
+
+.mod-tasks .icon-list-blank {
+    width: 141px;
+    height: 125px;
+    background-image: url(../img/svg/img-blank-list.svg)
+}
+
+.mod-tasks a {
+    color: inherit
+}
+
+.mod-tasks .txt {
+    font-size: 14px;
+    color: #000
+}
+
+.mod-tasks .txt-sub {
+    color: #777
+}
+
+.mod-tasks .txt-sub strong {
+    color: #FF8127
+}
+
+.mod-tasks .txt-link {
+    color: #00A4FF
+}
+
+.mod-tasks {
+    position: fixed;
+    z-index: 40;
+    right: 20px;
+    bottom: 20px;
+    width: 540px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 4px 0 rgba(15, 32, 66, .2);
+    background-color: #fff;
+    border: 1px solid rgba(5, 13, 27, .16);
+    border-top: none;
+    overflow: hidden;
+    height: 56px;
+    transition: height .3s ease
+}
+
+.mod-tasks::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-top: 2px solid #00A4FF;
+    border-bottom: 2px solid #00A4FF;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px
+}
+
+.mod-tasks .operation {
+    position: absolute;
+    z-index: 1;
+    right: 20px;
+    top: 13px;
+    line-height: 0;
+    font-size: 0
+}
+
+.mod-tasks .operation .btn {
+    /* width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 4px;
+    text-align: center;
+    border-radius: 100% */
+    border: none;
+    outline: 0;
+    background: 0 0;
+    padding: 0;
+    color: transparent;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 4px;
+    text-align: center;
+    border-radius: 100%;
+    font-size: 0;
+}
+
+.mod-tasks .operation .btn:hover {
+    background-color: #E9EEF2
+}
+
+.mod-tasks .operation .btn:last-of-type {
+    margin-right: 0
+}
+
+.mod-tasks .tasks-header {
+    position: relative;
+    z-index: 0
+}
+
+.mod-tasks .tasks-header .before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: transparent;
+    pointer-events: none;
+    transform-origin: 0 50%
+}
+
+.mod-tasks .tasks-header.tasking-nor .before,
+.mod-tasks .tasks-header.tasking-vip .before {
+    background: rgba(0, 164, 255, .15)
+}
+
+.mod-tasks .tasks-header.result-fail .before {
+    background: rgba(153, 153, 153, .2)
+}
+
+.mod-tasks .summary-wrapper {
+    padding-left: 19px;
+    height: 56px;
+    line-height: 56px;
+    font-size: 0
+}
+
+.mod-tasks .summary-wrapper .icon-status {
+    margin-right: 16px;
+    width: 20px;
+    height: 20px
+}
+
+.mod-tasks .summary-wrapper .txt {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    font-weight: 500
+}
+
+.mod-tasks .tasking-nor .summary-wrapper .icon-status {
+    background-image: url(../img/task-manager/icon-statusbar-nor.svg);
+    position: relative;
+    top: 9px;
+    
+}
+
+.mod-tasks .tasking-vip .summary-wrapper .icon-status {
+    background-image: url(../img/task-manager/icon-statusbar-vip.svg)
+}
+
+.mod-tasks .tasking-offline .summary-wrapper .icon-status {
+    background-image: url(../img/task-manager/icon-offline.svg)
+}
+
+.mod-tasks .result-succ .summary-wrapper .icon-status {
+    background-image: url(../img/task-manager/icon-task-succ.svg);
+    position: relative;
+    top: 9px;
+}
+
+.mod-tasks .result-fail .summary-wrapper .icon-status {
+    background-image: url(../img/task-manager/icon-task-fail.svg)
+}
+
+.mod-tasks .vip-speed {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #00A4FF
+}
+
+.mod-tasks .vip-speed::before {
+    content: "";
+    display: none;
+    width: 9px;
+    height: 12px;
+    margin-right: 3px;
+    background-image: url(../img/task-manager/icon-statusbar-accelerate.svg)
+}
+
+.mod-tasks .tasking-vip .vip-speed::before {
+    display: inline-block
+}
+
+.mod-tasks .tasks-body,
+.mod-tasks .tasks-header .title-wrapper,
+.mod-tasks.expand .tasks-header .summary-wrapper,
+.mod-tasks.expand .tasks-header .summary-wrapper .before {
+    display: none
+}
+
+.mod-tasks.expand {
+    height: 442px;
+    line-height: 1.2
+}
+
+.mod-tasks.expand .icon-window-fold {
+    transform: rotate(180deg)
+}
+
+.mod-tasks.expand .tasks-body,
+.mod-tasks.expand .tasks-header .title-wrapper {
+    display: block
+}
+
+.mod-tasks.expand .tasks-header {
+    height: 94px;
+    box-sizing: border-box;
+    padding-top: 35px;
+    padding-left: 28px
+}
+
+.mod-tasks.expand .tasks-header .title-wrapper .txt {
+    display: inline-block;
+    margin-right: 7px
+}
+
+.mod-tasks.expand .tasks-header .title-wrapper .title {
+    font-size: 40px;
+    color: #000
+}
+
+.mod-tasks.expand .tasks-header .title-wrapper .anim-wrapper {
+    display: none;
+    position: absolute;
+    left: 30px;
+    top: 30px
+}
+
+.mod-tasks.expand .tasking-vip .title-wrapper .anim-wrapper {
+    display: block
+}
+
+.mod-tasks.expand .result-fail .title-wrapper .anim-wrapper,
+.mod-tasks.expand .result-succ .title-wrapper .anim-wrapper,
+.mod-tasks.expand .tasking-offline .title-wrapper .anim-wrapper,
+.mod-tasks.expand.subdir .title-wrapper .anim-wrapper,
+.mod-tasks.subdir .tasks-header .title-wrapper {
+    display: none
+}
+
+.mod-tasks.expand .tasks-header.tasking-vip {
+    padding-left: 108px
+}
+
+.mod-tasks.expand .tasking-vip .title-wrapper .title {
+    color: #00A4FF
+}
+
+.mod-tasks .tasking-vip+.tasks-body .tasks-item {
+    position: relative
+}
+
+.mod-tasks.expand .result-fail.tasks-header,
+.mod-tasks.expand .result-succ.tasks-header,
+.mod-tasks.expand .tasking-offline.tasks-header,
+.mod-tasks.expand.subdir .tasks-header {
+    padding-left: 28px
+}
+
+@keyframes vipAccelerate {
+    from {
+        opacity: 1;
+        transform: translate3d(0, 0, 0)
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(210%, 0, 0)
+    }
+}
+
+#editor .ql-editor ul[data-checked=true]>li,
+.mod-tasks .cancel .item-tit {
+    opacity: .5
+}
+
+.mod-tasks .tasking-vip~.tasks-body .tasks-item::after {
+    visibility: hidden;
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+    width: 200px;
+    height: 2px;
+    background-image: linear-gradient(to left, #6ACAFF 0, rgba(106, 202, 255, 0) 100%);
+    animation: vipAccelerate 1s linear infinite;
+    animation-play-state: paused
+}
+
+.mod-tasks .tasking-vip~.tasks-body .tasks-item.dealing::after {
+    visibility: visible;
+    animation-play-state: running
+}
+
+.mod-tasks.subdir .tasks-body .mod-act-panel,
+.mod-tasks.subdir .tasks-header .summary-wrapper {
+    display: block
+}
+
+.mod-tasks.subdir.expand .tasks-header .summary-wrapper {
+    margin-top: -35px;
+    margin-left: -28px
+}
+
+.mod-tasks .tasks-op-wrapper {
+    height: 34px;
+    line-height: 0;
+    padding: 0 30px;
+    border-bottom: 1px solid #E8EAEB
+}
+
+.mod-tasks .tasks-op-wrapper .op-list {
+    float: right;
+    line-height: 1;
+    font-size: 0
+}
+
+.mod-tasks .tasks-op-wrapper .op-list-item {
+    display: inline-block;
+    margin-left: 20px;
+    cursor: pointer
+}
+
+.mod-tasks .mod-act-panel {
+    display: none;
+    float: left;
+    height: 100%;
+    line-height: 20px
+}
+
+.mod-tasks .mod-breadcrumb {
+    padding: 0
+}
+
+.mod-tasks .tasks-group-wrapper {
+    width: 100%;
+    height: 311px;
+    overflow: auto;
+    overflow-x: hidden;
+    white-space: nowrap
+}
+
+.mod-tasks .tasks-list-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    overflow: hidden
+    /* overflow-x: hidden */
+}
+
+.mod-tasks .tasks-list-wrapper .item-inner {
+    position: relative;
+    padding: 14px 20px;
+    line-height: 1.1;
+    font-size: 0
+}
+
+.mod-tasks .tasks-list-wrapper .item-inner::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    width: 100%;
+    background-color: #E8EAEB
+}
+.tasks-group-wrapper::-webkit-scrollbar
+{
+    width: 8px;
+    height: 16px;
+    background-color: #F5F5F5;
+}
+ 
+/*定义滚动条轨道 内阴影+圆角*/
+.tasks-group-wrapper::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+ 
+/*定义滑块 内阴影+圆角*/
+.tasks-group-wrapper::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #d8dce5;
+}
+
+.mod-tasks .tasks-list-wrapper .tasks-item:last-of-type .item-inner::before {
+    display: none
+}
+
+.mod-tasks .tasks-list-wrapper .txt {
+    font-size: 12px
+}
+
+.mod-tasks .tasks-list-wrapper .txt-sub {
+    color: #777
+}
+
+.mod-tasks .tasks-list-wrapper .txt-strong {
+    color: #0095EE
+}
+
+.mod-tasks .tasks-list-wrapper .txt-fail {
+    color: #F54C4B
+}
+
+.mod-tasks .tasks-list-wrapper .txt-link {
+    color: #00A6FF
+}
+
+.mod-tasks .tasks-list-wrapper .txt-link a {
+    color: inherit
+}
+
+.mod-tasks .tasks-list-wrapper .txt-block {
+    display: block
+}
+
+.mod-tasks .tasks-list-wrapper .item-tit .info,
+.mod-tasks .tasks-list-wrapper .item-tit .info .txt,
+.mod-tasks .tasks-list-wrapper .item-tit .thumb,
+.mod-tasks .tasks-list-wrapper .item-tit .tit-inner,
+.mod-tasks .tasks-list-wrapper .progress-wrapper,
+.mod-tasks .tasks-list-wrapper .task-progress-status,
+.mod-tasks .tasks-list-wrapper .task-txt-status {
+    display: inline-block;
+    vertical-align: middle
+}
+
+.mod-tasks .tasks-list-wrapper .item-tit .mod-tasks .tasks-list-wrapper .tit {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px
+}
+
+.mod-tasks .tasks-list-wrapper .item-tit {
+    float: left
+}
+
+.mod-tasks .tasks-list-wrapper .task-info {
+    float: right
+}
+
+.mod-tasks .tasks-list-wrapper .item-tit .thumb {
+    width: 40px;
+    height: 40px;
+    margin-right: 16px
+}
+
+.mod-tasks .tasks-list-wrapper .item-tit .info {
+    width: 270px;
+    font-size: 14px
+}
+
+.mod-tasks .tasks-list-wrapper .item-tit .info .txt-fail {
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.mod-tasks .tasks-list-wrapper .item-tit .tit {
+    margin-bottom: 2px;
+    line-height: 1.3
+}
+
+.mod-tasks .tasks-list-wrapper .item-tit .tit-inner {
+    max-width: 100%;
+    margin-right: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.mod-tasks .tasks-list-wrapper .is-folder .tit {
+    cursor: pointer
+}
+
+.mod-tasks .tasks-list-wrapper .is-folder .tit-inner {
+    max-width: 90%
+}
+
+.mod-tasks .tasks-list-wrapper .is-folder .tit::after {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 3px;
+    width: 8px;
+    height: 13px;
+    background-image: url(../img/svg/icon-folder-dir.svg)
+}
+
+.mod-tasks .tasks-list-wrapper .tit~.txt {
+    margin-right: 4px
+}
+
+.mod-tasks .tasks-list-wrapper .tit~.txt:last-of-type {
+    margin-right: 0
+}
+
+.mod-tasks .tasks-list-wrapper .task-txt-status {
+    margin-right: 27px;
+    font-size: 14px
+}
+
+.mod-tasks .tasks-list-wrapper .task-info .txt-sub {
+    color: #000
+}
+
+.mod-tasks .tasks-list-wrapper .task-txt-status.txt-link {
+    margin-right: 0;
+    margin-top: 13px
+}
+
+.mod-tasks .tasks-list-wrapper .task-txt-status.txt-strong {
+    display: none
+}
+
+.mod-tasks .task-txt-status.txt-strong::before {
+    content: "";
+    display: inline-block;
+    width: 9px;
+    height: 12px;
+    margin-right: 4px;
+    background-image: url(../img/svg/icon-vip-trial.svg)
+}
+
+.mod-tasks .task-progress-status {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    line-height: 36px
+}
+
+.mod-tasks .tasks-list-wrapper .task-progress-status .txt-sub {
+    color: rgba(155, 155, 155, .5)
+}
+
+.mod-tasks .task-progress-status .progress {
+    visibility: hidden;
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    border: 2px solid #E9EEF2
+}
+
+.mod-tasks .task-progress-status .progress svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg)
+}
+
+.mod-tasks .task-progress-status .progress circle {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 998
+}
+
+.mod-tasks .mod-tab-list-group .tasks-item.act {
+    background-color: #F5F8FA
+}
+
+.mod-tasks .progressing .task-progress-status .progress {
+    visibility: visible
+}
+
+.mod-tasks .task-progress-status .btn-icon {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-size: 0;
+    color: transparent;
+    background-color: #fff;
+    outline:none;
+    border-radius: 100%;
+    padding: 0;
+}
+
+.mod-tasks .task-progress-status .btn-icon:active{
+    /* background-image: none; */
+    /* outline: 0; */
+    -webkit-box-shadow: none;
+     box-shadow: none;
+}
+/* .mod-tasks .task-progress-status .btn-icon */
+
+
+.mod-tasks .cancel .progress-wrapper,
+.mod-tasks .cancel:hover .task-progress-status .task-txt-status {
+    display: none
+}
+
+.mod-tasks .cancel:hover .progress-wrapper,
+.mod-tasks .tasks-list-wrapper .dealing .task-txt-status.txt-strong {
+    display: inline-block
+}
+
+.mod-tasks .waiting .task-progress-status .btn-icon {
+    background-image: url(../img/task-manager/icon-tasks-wait.svg)
+}
+
+.mod-tasks .offline .task-progress-status .btn-icon {
+    background-image: url(../img/task-manager/icon-offline.svg)
+}
+
+.mod-tasks .dealing .task-progress-status .btn-icon,
+.mod-tasks .offline:hover .task-progress-status .btn-icon,
+.mod-tasks .waiting:hover .task-progress-status .btn-icon {
+    background-image: url(../img/task-manager/icon-all-close.svg)
+}
+
+.mod-tasks .fail .task-progress-status .btn-icon {
+    background-image: url(../img/task-manager/icon-task-fail.svg)
+}
+
+.mod-tasks .fail:hover .task-progress-status:first-of-type {
+    margin-right: 18px
+}
+
+.mod-tasks .fail:hover .task-progress-status:first-of-type:last-of-type {
+    margin-right: 0
+}
+
+.mod-tasks .cancel .task-progress-status .btn-icon,
+.mod-tasks .fail:hover .task-progress-status:first-of-type .btn-icon,
+.mod-tasks .offline.cancel .task-progress-status .btn-icon {
+    background-image: url(../img/task-manager/icon-task-retry.svg)
+}
+
+.mod-tasks .fail:hover .task-progress-status:nth-of-type(2) .btn-icon {
+    background-image: url(../img/task-manager/icon-all-close.svg)
+}
+
+.mod-tasks .succ .task-progress-status .btn-icon {
+    background-image: url(../img/task-manager/icon-task-succ.svg)
+}
+
+.mod-tasks .succ:hover .task-progress-status .btn-icon {
+    background-image: url(../img/task-manager/icon-task-godir.svg);
+    border-radius: 36px;
+    padding: 0;
+    border: 0px;
+    background-color: #F5F8FA;
+}
+
+
+.mod-tasks .task-progress-status .btn-icon::after {
+    visibility: hidden;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    right: 2px;
+    border-radius: 100%;
+    background-color: #F5F8FA
+}
+
+.mod-tasks .cancel:hover .task-progress-status .btn-icon,
+.mod-tasks .dealing:hover .task-progress-status .btn-icon,
+.mod-tasks .fail .task-progress-status .btn-icon,
+.mod-tasks .offline .task-progress-status .btn-icon,
+.mod-tasks .succ .task-progress-status .btn-icon,
+.mod-tasks .task-progress-status .btn-icon:hover::after,
+.mod-tasks .waiting .task-progress-status .btn-icon {
+    visibility: visible
+}
+
+.mod-tasks .safebox-wrapper {
+    padding: 41px 80px 0 60px;
+    font-size: 0
+}
+
+.mod-tasks .icon-safebox-logo,
+.mod-tasks .safebox-wrapper .input-wrapper {
+    display: inline-block;
+    vertical-align: middle
+}
+
+.mod-tasks .safebox-wrapper .input-wrapper {
+    width: 200px
+}
+
+.mod-tasks .safebox-wrapper input {
+    display: block;
+    width: 100%;
+    height: 36px;
+    line-height: 34px;
+    box-sizing: border-box;
+    border: 1px solid #E8EAEB;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    padding-left: 8px;
+    font-size: 14px
+}
+
+.mod-tasks .safebox-wrapper input:focus {
+    border-color: #00A4FF
+}
+
+.mod-tasks .safebox-wrapper .btn-block {
+    width: 100%
+}
+
+.mod-tasks .safebox-wrapper .input-wrapper .btn-l {
+    border-radius: 2px;
+    background-color: #E9EEF2;
+    font-size: 14px;
+    color: #bbb;
+    cursor: not-allowed
+}
+
+.mod-tasks .safebox-wrapper .valid .btn-l {
+    background-color: #00A4FF;
+    color: #fff;
+    cursor: pointer
+}
+
+.mod-tasks .safebox-wrapper .valid .btn-l:hover {
+    background-color: #3B93FF
+}
+
+.mod-tasks.fail::before {
+    border-top-color: #F55;
+    border-bottom-color: #F55
+}
+
+.mod-tasks.vip .tasks-header::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 56px;
+    height: 56px;
+    border: 2px solid #00A4FF;
+    border-radius: 56px;
+    margin-right: 20px
+}
+
+.mod-tasks.vip .tasks-header .title-wrapper {
+    position: relative;
+    float: none;
+    display: inline-block;
+    vertical-align: middle
+}
+
+.mod-tasks.vip .tasks-header .title-wrapper::before {
+    content: "";
+    position: absolute;
+    left: -74px;
+    top: 6px;
+    width: 50px;
+    height: 50px;
+    background: url(../img/task-manager/icon-speedup.svg)
+}
+
+.mod-tasks.vip .tasks-header .title {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 32px
+}
+
+.mod-tasks.vip.subdir .tasks-header .title-wrapper,
+.mod-tasks.vip.subdir .tasks-header::before {
+    display: none
+}
+
+.mod-tasks.vip .anim-wrapper {
+    display: none
+}
+
+.mod-tasks:not(.expand) .tasks-header::before {
+    display: none
+}
+
+.mod-speed {
+    position: relative;
+    width: 72px;
+    height: 72px
+}
+
+.mod-speed .item,
+.mod-speed .item .item-con {
+    position: absolute;
+    display: block
+}
+
+.mod-speed .light {
+    left: 50%;
+    top: 50%;
+    margin: -18px 0 0 -18px;
+    width: 36px;
+    height: 36px;
+    background-image: url(../img/speed/light.svg)
+}
+
+.mod-speed .round {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    left: 0;
+    top: 0
+}
+
+.mod-speed.act .light {
+    -webkit-animation: speedLight 1.5s 0s ease-out forwards;
+    animation: speedLight 1.5s 0s ease-out forwards
+}
+
+@-webkit-keyframes speedLight {
+    0% {
+        -webkit-transform: scale(.01);
+        transform: scale(.01)
+    }
+    10% {
+        -webkit-transform: scale(1.4)
+    }
+    30% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+    45% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        background-image: url(../img/speed/light.svg)
+    }
+    50%,
+    60% {
+        background-image: url(../img/speed/light-line.svg)
+    }
+    55%,
+    65% {
+        background-image: url(../img/speed/light.svg)
+    }
+    100% {
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes speedLight {
+    0% {
+        -webkit-transform: scale(.01);
+        transform: scale(.01)
+    }
+    10% {
+        -webkit-transform: scale(1.4)
+    }
+    30% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+    45% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        background-image: url(../img/speed/light.svg)
+    }
+    50%,
+    60% {
+        background-image: url(../img/speed/light-line.svg)
+    }
+    55%,
+    65% {
+        background-image: url(../img/speed/light.svg)
+    }
+    100% {
+        -webkit-transform: scale(1)
+    }
+}
+
+.mod-speed .round .item-con {
+    left: 50%;
+    top: 50%;
+    opacity: 0
+}
+
+.mod-speed .round-1 .item-con {
+    margin: -28px 0 0 -28px;
+    width: 56px;
+    height: 56px;
+    background-image: url(../img/speed/round-1.svg)
+}
+
+.mod-speed .round-2 .item-con {
+    margin: -32px 0 0 -32px;
+    width: 64px;
+    height: 64px;
+    background-image: url(../img/speed/round-2.svg)
+}
+
+.mod-speed .round-3 .item-con {
+    margin: -36px 0 0 -36px;
+    width: 72px;
+    height: 72px;
+    background-image: url(../img/speed/round-3.svg)
+}
+
+.mod-speed.act .round .item-con {
+    -webkit-animation: speedRound 1s 0s ease forwards;
+    animation: speedRound 1s 0s ease forwards
+}
+
+.mod-speed.act .round-1 .item-con {
+    -webkit-animation-delay: .6s;
+    animation-delay: .6s
+}
+
+.mod-speed.act .round-2 .item-con {
+    -webkit-animation-delay: .4s;
+    animation-delay: .4s
+}
+
+.mod-speed.act .round-3 .item-con {
+    -webkit-animation-delay: .1s;
+    animation-delay: .1s
+}
+
+@-webkit-keyframes speedRound {
+    0% {
+        opacity: 1;
+        -webkit-transform: scale(.01);
+        transform: scale(.01)
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes speedRound {
+    0% {
+        opacity: 1;
+        -webkit-transform: scale(.01);
+        transform: scale(.01)
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1)
+    }
+}
+
+.mod-speed.act .round {
+    -webkit-animation: speedRoundTurn .6s 0s linear infinite;
+    animation: speedRoundTurn .6s 0s linear infinite
+}
+
+@-webkit-keyframes speedRoundTurn {
+    0% {
+        -webkit-transform: rotate(0)
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+@keyframes speedRoundTurn {
+    0% {
+        -webkit-transform: rotate(0)
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+.mod-speed .line-1 {
+    left: 4px;
+    top: 38px;
+    width: 35px;
+    height: 20px;
+    background-image: url(../img/speed/line-1.svg);
+    opacity: 0
+}
+
+.mod-speed .line-2 {
+    left: 31px;
+    top: 14px;
+    width: 35px;
+    height: 20px;
+    background-image: url(../img/speed/line-2.svg);
+    opacity: 0
+}
+
+.mod-speed.act .line-1,
+.mod-speed.act .line-2 {
+    -webkit-animation: speedLine 3s 1s ease infinite;
+    animation: speedLine 3s 1s ease infinite
+}
+
+.mod-speed.act .line-2 {
+    -webkit-animation-delay: 2.2s;
+    animation-delay: 2.2s
+}
+
+@-webkit-keyframes speedLine {
+    20%,
+    40%,
+    from {
+        opacity: 1
+    }
+    10%,
+    30%,
+    50%,
+    to {
+        opacity: 0
+    }
+}
+
+@keyframes speedLine {
+    20%,
+    40%,
+    from {
+        opacity: 1
+    }
+    10%,
+    30%,
+    50%,
+    to {
+        opacity: 0
+    }
+}
+
+.mod-speed.gif {
+    background-image: url(../img/speed/gif-start.gif)
+}
+
+.mod-speed.gif.loop {
+    background-image: url(../img/speed/gif-loop.gif)
+}
+
+.mod-speed.gif .item {
+    display: none
+}
+
+.mod-selectable-helper {
+    position: fixed;
+    z-index: 888;
+    border: 1px solid #DBDBDB;
+    background-color: rgba(85, 85, 85, .15)
+}
+
+.mod-draggable {
+    position: absolute;
+    top: 150px;
+    left: 20px;
+    z-index: 600;
+    padding: 7px
+}
+
+.mod-draggable .icon-count {
+    position: relative;
+    z-index: 0;
+    min-width: 26px;
+    min-height: 26px;
+    border-radius: 9999px;
+    background-color: transparent;
+    -webkit-box-shadow: 0 3px 5px 0 #f0f;
+    box-shadow: 0 3px 5px 0 rgba(15, 32, 65, .05)
+}
+
+.mod-draggable .icon-count .num {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    text-align: center;
+    min-width: 24px;
+    min-height: 24px;
+    border-radius: 24px;
+    margin: -12px 0 0 -12px;
+    background: #00A4FF;
+    font-size: 14px;
+    line-height: 24px;
+    color: #fff
+}
+
+.modal-dialog-process-hd .icon-step {
+    width: 20px;
+    height: 20px;
+    vertical-align: -5px
+}
+
+.modal-dialog-safebox .icon-lock,
+.modal-dialog-safebox .icon-mail,
+.modal-dialog-safebox .icon-mobile,
+.modal-dialog-safebox .icon-protect,
+.modal-dialog-safebox .icon-qa {
+    width: 40px;
+    height: 40px
+}
+
+.modal-dialog-safebox .icon-mobile {
+    background-image: url(../img/svg/icon-safebox-mobile.svg)
+}
+
+.modal-dialog-safebox .icon-mail {
+    background-image: url(../img/svg/icon-safebox-mail.svg)
+}
+
+.modal-dialog-safebox .icon-qa {
+    background-image: url(../img/svg/icon-safebox-qa.svg)
+}
+
+.modal-dialog-safebox .icon-lock {
+    background-image: url(../img/svg/icon-safebox-lock.svg)
+}
+
+.modal-dialog-safebox .icon-protect {
+    background-image: url(../img/svg/icon-safebox-protect.svg)
+}
+
+.modal-dialog-safebox .input-wrapper .btn,
+.modal-dialog-safebox .input-wrapper input {
+    display: inline-block;
+    vertical-align: middle
+}
+
+.modal-dialog-safebox .input-wrapper .btn {
+    width: 90px;
+    height: 36px;
+    line-height: 36px
+}
+
+.modal-dialog-safebox .input-wrapper .btn-outline,
+.modal-dialog-safebox .input-wrapper .btn-outline.btn-disable {
+    background-color: transparent;
+    border-color: currentColor;
+    color: #0095EE
+}
+
+.modal-dialog-safebox input {
+    display: inline-block;
+    width: 200px;
+    height: 36px;
+    line-height: 36px;
+    padding-left: 8px;
+    border: 1px solid #D2D8DC;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-size: 14px;
+    color: #000
+}
+
+.modal-dialog-safebox input:focus {
+    border-color: #00A4FF
+}
+
+.modal-dialog-safebox .err input,
+.modal-dialog-safebox .err~input {
+    border-color: #FF4222
+}
+
+.modal-dialog-process-hd {
+    height: 60px;
+    line-height: 60px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #E9EAEB
+}
+
+.modal-dialog-process-hd .step-list {
+    font-size: 0
+}
+
+.modal-dialog-process-hd .step {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    font-size: 14px;
+    color: #777
+}
+
+.modal-dialog-process-hd .step .icon-step {
+    background: #D2D8DC;
+    border-radius: 100%;
+    margin-right: 8px;
+    line-height: 20px;
+    text-align: center
+}
+
+.modal-dialog-process-hd .step .icon-step::before {
+    font-size: 14px;
+    color: #fff
+}
+
+.modal-dialog-process-hd .step:nth-of-type(1) .icon-step::before {
+    content: "1"
+}
+
+.modal-dialog-process-hd .step:nth-of-type(2) .icon-step::before {
+    content: "2"
+}
+
+.modal-dialog-process-hd .step.act {
+    color: #2980FF
+}
+
+.modal-dialog-process-hd .step.act .icon-step {
+    background: #2980FF
+}
+
+.modal-dialog-process-hd .step.succ {
+    opacity: .4
+}
+
+.modal-dialog-process-hd .step.succ .icon-step {
+    background: url(../img/svg/icon-tab-succ.svg)
+}
+
+.modal-dialog-process-hd .step.succ .icon-step::before {
+    opacity: 0
+}
+
+.modal-dialog-process-bd {
+    white-space: nowrap;
+    transition: transform .3s ease-out
+}
+
+.modal-dialog-process-bd .step-bd {
+    white-space: normal
+}
+
+.mod-container .container-hd .hd-tit .tit,
+.mod-moudle .duration,
+.mod-moudle .moudle-con .tit,
+.ql-toolbar button {
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.modal-dialog-process-bd.next-step {
+    transform: translateX(-100%)
+}
+
+.modal-dialog-safebox .input-wrapper {
+    display: inline-block
+}
+
+.modal-dialog-safebox .input-wrapper+.input-wrapper {
+    margin-top: 11px
+}
+
+.modal-dialog-safebox .input-wrapper .console {
+    bottom: -31px
+}
+
+.modal-dialog-safebox .set-confirm .step-bd,
+.modal-dialog-safebox .set-pw .step-bd {
+    text-align: center
+}
+
+.modal-dialog-safebox .set-confirm input {
+    width: 200px
+}
+
+.modal-dialog-safebox .set-confirm .input-wrapper .btn {
+    margin-left: 7px
+}
+
+.modal-dialog-safebox .set-confirm .input-l {
+    width: 300px
+}
+
+.modal-dialog-safebox .set-confirm .txt {
+    text-align: left;
+    margin-bottom: 9px;
+    font-size: 14px;
+    color: #555
+}
+
+.modal-dialog-safebox .step-cont .list-choice {
+    margin-bottom: 30px
+}
+
+.modal-dialog-safebox .step-cont .list-choice:last-of-type {
+    margin-bottom: 0
+}
+
+.modal-dialog-safebox .choose-step .sub-title,
+.modal-dialog-safebox .step-cont .choice {
+    width: 300px;
+    margin: 0 auto
+}
+
+.modal-dialog-safebox .step-cont .choice {
+    position: relative;
+    height: 56px;
+    line-height: 56px;
+    box-sizing: border-box;
+    padding: 0 16px 0 10px;
+    border: 1px solid #E8EAEB;
+    border-radius: 2px;
+    font-size: 14px;
+    color: #000;
+    cursor: pointer
+}
+
+.modal-dialog-safebox .step-cont .choice:hover {
+    background-color: #F5F8FA;
+    transition: background-color .2s ease
+}
+
+.modal-dialog-safebox .step-cont .choice .icon {
+    margin-right: 8px
+}
+
+.modal-dialog-safebox .step-cont .choice .txt {
+    float: right;
+    margin-right: 13px;
+    color: #777
+}
+
+.modal-dialog-safebox .step-cont .choice::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    width: 7px;
+    height: 12px;
+    margin-top: -5px;
+    background-image: url(../img/svg/icon-process-arr.svg)
+}
+
+.modal-dialog-safebox .step-cont .choice+.choice {
+    margin-top: 10px
+}
+
+.modal-dialog-safebox .choose-step .sub-title {
+    margin-bottom: 11px;
+    line-height: 1;
+    font-size: 14px;
+    color: #555
+}
+
+.modal-dialog-safebox .qa-wrapper {
+    position: relative;
+    z-index: 0;
+    width: 300px;
+    height: 62px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-size: 14px;
+    color: #000;
+    line-height: 1
+}
+
+.modal-dialog-safebox .qa-wrapper+.qa-wrapper {
+    margin-top: 10px
+}
+
+.modal-dialog-safebox .qa-wrapper .question {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0 8px;
+    border: 1px solid #D2D8DC;
+    border-bottom: none;
+    cursor: pointer
+}
+
+.modal-dialog-safebox .qa-wrapper .question::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    right: 13px;
+    width: 8px;
+    height: 5px;
+    margin-top: -2px;
+    background-image: url(../img/svg/icon-dropdown-arr.svg)
+}
+
+.modal-dialog-safebox .qa-wrapper .question::after {
+    content: "";
+    opacity: 0;
+    position: absolute;
+    bottom: 0;
+    left: 8px;
+    right: 8px;
+    height: 1px;
+    background-color: #E6E7EC
+}
+
+.modal-dialog-safebox .qa-wrapper .q-picked {
+    position: relative;
+    display: block;
+    height: 36px;
+    line-height: 36px;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-right: 10%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.modal-dialog-safebox .qa-wrapper .q-list {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 36px;
+    left: -1px;
+    right: -1px;
+    background-color: #fff;
+    max-height: 110px;
+    overflow-y: auto;
+    border: 1px solid #C8CCD3;
+    box-sizing: border-box;
+    border-top: none;
+    box-shadow: 0 3px 4px 0 rgba(15, 32, 66, .2)
+}
+
+.modal-dialog-safebox .qa-wrapper.expand {
+    z-index: 1
+}
+
+.modal-dialog-safebox .qa-wrapper.expand,
+.modal-dialog-safebox .qa-wrapper.expand~.qa-wrapper {
+    border-color: transparent
+}
+
+.modal-dialog-safebox .qa-wrapper.expand .question {
+    box-shadow: 0 1px 4px 0 rgba(15, 32, 66, .2)
+}
+
+.modal-dialog-safebox .qa-wrapper.expand .question::after {
+    opacity: 1
+}
+
+.modal-dialog-safebox .qa-wrapper.expand .q-list {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .2s ease
+}
+
+.ql-container.ql-disabled .ql-tooltip,
+.ql-snow .ql-out-bottom,
+.ql-snow .ql-out-top,
+.ql-snow .ql-picker-options .ql-picker-item .icon-sel {
+    visibility: hidden
+}
+
+.modal-dialog-safebox .qa-wrapper.expand .q-item {
+    padding: 11px 8px
+}
+
+.modal-dialog-safebox .qa-wrapper.expand .q-item:hover {
+    background-color: #F5F8FA
+}
+
+.modal-dialog-safebox .qa-wrapper.expand .question::before {
+    transform: rotate(180deg)
+}
+
+.modal-dialog-safebox .qa-wrapper .answer {
+    width: 100%;
+    height: auto;
+    padding: 36px 8px 10px;
+    border: 1px solid #D2D8DC;
+    border-top: none;
+    line-height: inherit
+}
+
+.modal-dialog-safebox .qa-wrapper.focus .answer,
+.modal-dialog-safebox .qa-wrapper.focus .question {
+    border-color: #00A4FF;
+    transition: border-color .2s ease
+}
+
+.modal-dialog-safebox.init-safebox .set-pw .step-bd {
+    padding: 65px 0 66px
+}
+
+.modal-dialog-safebox.init-safebox .set-protect .step-bd {
+    padding: 41px 0
+}
+
+.modal-dialog-safebox.init-safebox .set-confirm .step-bd {
+    padding: 66px 0 65px
+}
+
+.modal-dialog-safebox.init-safebox .set-qa .step-bd {
+    padding: 40px 0
+}
+
+.modal-dialog-safebox .modal-dialog-bd {
+    overflow: hidden
+}
+
+.modal-dialog-safebox.getback-pw .get-pw .step-bd {
+    padding: 90px 0;
+    text-align: center
+}
+
+.modal-dialog-safebox.getback-pw .get-pw .txt {
+    text-align: left;
+    margin-bottom: 9px;
+    color: #555
+}
+
+.modal-dialog-safebox.getback-pw .set-protect .step-bd {
+    padding: 40px 0 30px
+}
+
+.modal-dialog-safebox.getback-pw .set-protect .btn-link {
+    margin-top: 30px;
+    text-align: center
+}
+
+.modal-dialog-safebox.getback-pw .set-pw .step-bd {
+    padding: 82px 0 81px
+}
+
+.modal-dialog-safebox.getback-pw .get-qa .step-bd {
+    padding: 56px 0
+}
+
+.modal-dialog-safebox.getback-pw .get-qa .question::before {
+    opacity: 0
+}
+
+.modal-dialog-safebox.normal .input-pw {
+    padding: 143px 0;
+    text-align: center
+}
+
+.modal-dialog-safebox.normal .choose-step .step-bd {
+    padding: 40px 0
+}
+
+.modal-dialog-safebox.normal .set-protect .step-bd {
+    padding: 43px 0
+}
+
+.modal-dialog-safebox.normal .set-confirm .step-bd,
+.modal-dialog-safebox.normal .set-pw .step-bd {
+    padding: 120px 0
+}
+
+.modal-dialog-safebox.normal .set-qa .step-bd {
+    padding: 92px 0
+}
+
+.modal-dialog-safebox .step-cont {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%
+}
+
+.mod-safebox .icon-safebox-logo,
+.mod-safebox .operations-wrapper,
+.ql-editor-wrap .icon-trig-xs,
+.ql-snow .ql-formats,
+.ql-snow .ql-line,
+.ql-snow .ql-picker,
+.ql-toolbar button,
+img.checkbox {
+    vertical-align: middle
+}
+
+.mod-safebox {
+    margin-top: 167px;
+    text-align: center
+}
+
+.mod-safebox .icon-safebox-logo {
+    width: 246px;
+    height: 250px;
+    margin-right: 60px;
+    background-image: url(../img/svg/icon-safebox-logo.svg)
+}
+
+.mod-safebox .icon-safebox-empty {
+    width: 200px;
+    height: 200px;
+    background-image: url(../img/svg/icon-safebox-empty.svg)
+}
+
+.mod-safebox .icon-safebox-globle-lock {
+    width: 100px;
+    height: 100px;
+    background-image: url(../img/svg/icon-safebox-global-lock.svg)
+}
+
+.mod-safebox .btn {
+    text-align: center
+}
+
+.mod-safebox .btn-link {
+    font-size: 14px;
+    color: #555
+}
+
+.mod-safebox .btn-link-hl {
+    color: #00A4FF
+}
+
+.mod-safebox input {
+    height: 36px;
+    line-height: 36px;
+    padding: 0 8px;
+    border-radius: 2px;
+    border: 1px solid #00A4FF;
+    box-sizing: border-box
+}
+
+.mod-safebox .btn-l {
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+    color: #fff
+}
+
+.mod-safebox .status-inner .title {
+    margin-bottom: 7px;
+    font-size: 22px;
+    color: #000
+}
+
+.mod-safebox .status-inner .exp {
+    font-size: 14px;
+    color: #777
+}
+
+.mod-safebox .status-inner .is-grey {
+    color: #777
+}
+
+.mod-safebox .status-inner {
+    line-height: 1.2
+}
+
+.mod-safebox .operations-wrapper {
+    display: inline-block;
+    line-height: 1;
+    text-align: left;
+    width: 200px
+}
+
+.mod-safebox .slogen {
+    margin-bottom: 12px;
+    font-size: 22px;
+    color: #000
+}
+
+.mod-safebox .txt {
+    font-size: 14px;
+    color: #777
+}
+
+.mod-safebox .txt:last-of-type {
+    margin-bottom: 30px
+}
+
+.mod-safebox .input-wrapper {
+    position: relative
+}
+
+.mod-safebox .input-wrapper .placeholder {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-left: 8px;
+    line-height: 36px;
+    text-align: left;
+    font-size: 14px;
+    color: #999;
+    display: block
+}
+
+.mod-safebox .input-wrapper input:focus~.placeholder {
+    display: none
+}
+
+.mod-safebox .err input[type=password] {
+    border-color: #FF4222;
+    transition: border-color .2s ease
+}
+
+.mod-safebox .operations-wrapper .btn,
+.mod-safebox .operations-wrapper input[type=password] {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px
+}
+
+.mod-safebox .operations-wrapper .btn:last-of-type {
+    margin-bottom: 0
+}
+
+.mod-safebox .status-inner .icon-safebox-globle-lock {
+    margin-bottom: 30px
+}
+
+.mod-safebox .status-inner .exp:nth-last-of-type(1) {
+    margin-bottom: 30px
+}
+
+.mod-container {
+    background: #fff;
+    animation: toLeft .5s 0s forwards cubic-bezier(.77, 0, .175, 1)
+}
+
+@keyframes toLeft {
+    0% {
+        transform: translateX(25%);
+        opacity: 0
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1
+    }
+}
+
+.mod-container .container-hd {
+    position: relative;
+    height: 215px
+}
+
+.mod-container .container-bd {
+    position: relative;
+    height: calc(100vh - 215px);
+    overflow-y: auto
+}
+
+.mod-container .mod-toggle {
+    position: absolute;
+    left: 17px;
+    top: 18px
+}
+
+.mod-toggle {
+    color: #2980FF;
+    cursor: pointer
+}
+
+.mod-toggle .icon-trig-line {
+    margin: 0 3px 0 0;
+    top: -1px;
+    transform: rotate(-90deg)
+}
+
+.mod-container .container-hd .mod-check {
+    margin: 100px 0 0 70px;
+    float: left;
+    padding: 0
+}
+
+.mod-container .container-hd .hd-tit {
+    float: left;
+    max-width: 42%;
+    margin: 84px 0 0 15px
+}
+.thumb .icon-pic-m {
+    background-image: url(../img/svg/doctype/icon-pic-m.svg);
+    width: 40px;
+    height: 40px;
+}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>docCloud文档管理云平台</title>
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/datatable.css" rel="stylesheet">
+    <!-- <link href="css/demo_table_jui.css" rel="stylesheet"> -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="js/magnify/dist/jquery.magnify.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/page.css">
+    <link href="js/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    <!-- <link rel="stylesheet" href="css/comfirm.css"> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #userTree {
+            max-width: 300px;
+            width: 20%;
+            height: 100%;
+            border-right: 1px solid #ccc;
+            box-sizing: border-box;
+            /* float: left; */
+        }
+
+        #users {
+            width: 80%;
+            height: 100%;
+            padding: 20px 10px 0 20px;
+            box-sizing: border-box;
+            margin: 0px
+        }
+
+        .main {
+            overflow: auto;
+            min-width: 1120px;
+            display: flex
+        }
+        #searchType:focus,
+        #userTypeSel:focus{
+            outline: none
+        }
+        #searchType,#userTypeSel{
+            box-sizing: border-box;
+            font-size: 12px;
+        }
+        #userKey {
+            font-size: 12px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 微云 -->
+    <div class="weiyun">
+        <!-- 头部 -->
+        <% include html/header.html %>
+        <!-- 主要内容区 -->
+        <div class="weiyun-content">
+            <!-- 左侧菜单区 -->
+            <div class="lay-aside">
+
+                <div id="_search_bar" class="mod-search">
+                    <div class="search-panel">
+                        <div class="search-input">
+                            <input id="search" placeholder="搜索全部" autocomplete="off" type="text" aria-label="输入文件名并按下回车进行搜索" tabindex="0" class="mod-input">
+                        </div>
+                        <div class="search-placeholder">
+                            <i class="icon icon-searchs"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="aside-box">
+                    <div class="aside-wrap">
+                        <ul class="nav-box">
+                            <li class="nav-list summary">
+                                <a href="/summary" class="link doc" title="首页">
+                                    <i></i>首页</a>
+                            </li>
+                            <li class="nav-list file">
+                                <a href="/file" class="link all" title="目录">
+                                    <i></i>目录</a>
+                            </li>
+                            <!-- <li class="nav-list">
+                                <a href="/position" class="link doc" title="位置">
+                                    <i></i>位置</a>
+                            </li> -->
+                            <li class="nav-list hightSearch">
+                                <a href="/hightSearch" class="link pic" title="检索">
+                                    <i></i>检索</a>
+                            </li>
+                            <li class="nav-list report">
+                                <a href="/report" class="link" title="报表">
+                                    <i class="icon-bar-chart"></i>报表</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 右侧内容区域 -->
+            <div class="main" style="">
+                <ul id="userTree" class="ztree span3">
+                    <p style="text-align: center; padding-top: 5px">
+                        <img style='width:16px;height:16px' src='/img/waiting.gif' />
+                    </p>
+                </ul>
+                <div id="users" class="span9">
+                    <div class="input-append pull-left" style="height: 32px; line-height: 32px; font-size: 14px; padding-bottom: 0px">
+                        <span style="color: #0070c0;">选中用户：</span>
+                        <span id="selCustName"></span>
+                    </div>
+                    <!-- <div class="input-append pull-right" style="height: 32px; line-height: 32px; font-size: 14px; padding-bottom: 0px">
+                        <button id="addUser" class="btn btn-primary" style="font-size: 12px">新增</button>
+                    </div> -->
+                    <div class="input-append pull-right" style="height: 32px; line-height: 32px; font-size: 0px; padding-bottom: 0px;letter-spacing: -3px;">
+                        <select id="userTypeSel" class="input-small">
+                            <option value="1" data-i18n="customer.name">客户</option>
+                            <option value="2" data-i18n="customer.name">账号</option>
+                        </select>
+                        <select id="searchType" class="input-small">
+                            <option value="name" data-i18n="customer.name">名称</option>
+                            <option value="account" data-i18n="customer.name">账号</option>
+                        </select>
+                        <input id="userKey" class="input-medium" type="text" data-provide="typeahead" data-items="5" autocomplete="off" data-source="" placeholder="搜索用户">
+                        <button id="addUser" class="btn btn-primary" style="font-size: 12px">新增</button>
+                    </div>
+                    <div id="customer_panel">
+                        <table class="table table-hover table-striped table-bordered" width="100%" cellpadding="0" cellspacing="0" border="0" id="user_list">
+                            <thead>
+                                <tr class="tops">
+                                    <th width="20px" style="text-align: center !important;">
+                                        <input id="checkAll" type="checkbox">
+                                    </th>
+                                    <th width="120px" style="">
+                                        用户名
+                                    </th>
+
+                                    <th width="120px">
+                                        创建时间
+                                    </th>
+                                    <th width="90px">
+                                        操作
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- 提示信息 -->
+    <div class="full-tip-box">
+        <span class="full-tip">
+            <span class="inner">
+                <i class="ico"></i>
+                <span class="text" data-id="label">新建文件夹成功!</span>
+            </span>
+        </span>
+    </div>
+    <% include dialog/frmUser.html %>
+    <% include dialog/frmUserKey.html %>
+    <% include dialog/frmPassword.html %>
+
+    <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="js/jquery/jquery-1.12.4.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script> -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/bootstrap/jquery-migrate-1.2.1.js"></script>
+    <script src="js/jquery/jquery-ui.js"></script>
+    <script src="js/jquery.dataTables.js"></script>
+    <script src="js/bootstrap.dataTable.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/zTree/js/jquery.ztree.core-3.4.min.js"></script>
+    <script type="text/javascript" src="js/zTree/js/jquery.ztree.excheck-3.4.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/magnify/dist/jquery.magnify.js"></script>
+    <script src="js/jquery/jquery.cookie.js"></script>
+    <script src="js/js-spark-md5/spark-md5.min.js"></script>
+    <script src="js/wistorm/localApi.js"></script>
+    <script src="js/system.js"></script>
+    <script src="js/wistorm/md5.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/handledata.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/htmlTemplate.js"></script>
+    <script type="text/javascript" src="js/json1.js"></script>
+    <script type="text/javascript" src="js/textSize.js"></script>
+    <script src="js/account.js"></script>
+    <script src="js/user.js"></script>
+    <!-- <script src="js/upload.js"></script> -->
+    <!-- <script src="js/pdf/generic/build/pdf.js"></script> -->
+</body>
+
+</html>

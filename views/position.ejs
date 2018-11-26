@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>docCloud文档管理云平台</title>
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="js/magnify/dist/jquery.magnify.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/page.css">
+    <!-- <link rel="stylesheet" href="css/comfirm.css"> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #searchResult {
+            overflow: auto
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 微云 -->
+    <div class="weiyun">
+        <!-- 头部 -->
+        <header class="header">
+            <a href="#" class="logo2">docCloud文档管理云平台</a>
+            <div class="mod-act-group">
+                <div class="act-item act-item-acc">
+                    <div class="act-item-txt">
+                        <div class="mod-user">
+                            <div class="user-info">
+                                <span title="(๑°ㅁ°๑)" class="name">
+                                    <%= user.name %>
+                                </span>
+                                <i class="icon icon-trig"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mod-bubble-menu mod-bubble-menu-info with-border">
+                        <ul>
+                            <li class="menu-item">
+                                <span class="txt">用户管理</span>
+                                <div class="spliter"></div>
+                            </li>
+                            <li class="menu-item">
+                                <span class="txt">权限管理</span>
+                                <div class="spliter"></div>
+                            </li>
+                            <li class="menu-item logout">
+                                <span class="txt">退出登录</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- 主要内容区 -->
+        <div class="weiyun-content">
+            <!-- 左侧菜单区 -->
+            <div class="lay-aside">
+
+                <div id="_search_bar" class="mod-search">
+                    <div class="search-panel">
+                        <div class="search-input">
+                            <input id="search" placeholder="搜索全部" autocomplete="off" type="text" aria-label="输入文件名并按下回车进行搜索" tabindex="0" class="mod-input">
+                        </div>
+                        <div class="search-placeholder">
+                            <i class="icon icon-searchs"></i>
+                        </div>
+                    </div>
+                    <!-- <div class="mod-menu-group">
+                        <div class="menu-group">
+                            <div class="menu-group-hd">
+                                <p class="tit">历史记录</p>
+                                <div class="hd-act">
+                                    <a href="javascript:void(0)" class="btn-clear">清除记录</a>
+                                </div>
+                            </div>
+                            <div class="menu-group-bd">
+                                <ul class="menu-list">
+                                    <li class="menu-list-item">
+                                        <span class="item-txt">11</span>
+                                        <span title="删除" class="item-act">
+                                            <i class="icon icon-close"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="aside-box">
+                    <div class="aside-wrap">
+                        <ul class="nav-box">
+                            <li class="nav-list">
+                                <a href="#" class="link recent" title="最近">
+                                    <i></i>最近</a>
+                            </li>
+                            <li class="nav-gap">
+                                <span class="gap"></span>
+                            </li>
+                            <li class="nav-list ">
+                                <a href="/summary" class="link doc" title="首页">
+                                    <i></i>首页</a>
+                            </li>
+                            <li class="nav-list ">
+                                <a href="/file" class="link all" title="目录">
+                                    <i></i>目录</a>
+                            </li>
+                            <li class="nav-list nav-current">
+                                <a href="/position" class="link doc" title="位置">
+                                    <i></i>位置</a>
+                            </li>
+                            <li class="nav-list">
+                                <a href="/hightSearch" class="link pic" title="检索">
+                                    <i></i>检索</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 右侧内容区域 -->
+            <div class="main">
+                <!-- <div style="height: 100px;background-color: #f7f7f7">
+                    <ul>
+                        <li>
+                            <select class="form-control">
+                                <option>工矿企业档案</option>
+                                <option>文书档案</option>
+                                <option>业务档案</option>
+                                <option>执法档案</option>
+                                <option>综合档案</option>
+                                <option>培训宣传档案</option>
+                            </select>
+                        </li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div id="searchResult">
+                    <div style="height: 400px;"></div>
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+    <!-- 提示信息 -->
+    <div class="full-tip-box">
+        <span class="full-tip">
+            <span class="inner">
+                <i class="ico"></i>
+                <span class="text" data-id="label">新建文件夹成功!</span>
+            </span>
+        </span>
+    </div>
+
+
+    <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="js/jquery/jquery-1.12.4.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="js/jquery/jquery-ui.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/magnify/dist/jquery.magnify.js"></script>
+    <script src="js/jquery/jquery.cookie.js"></script>
+    <script src="js/js-spark-md5/spark-md5.min.js"></script>
+    <script src="js/wistorm/localApi.js"></script>
+    <script src="js/system.js"></script>
+    <script src="js/wistorm/md5.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/handledata.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/htmlTemplate.js"></script>
+    <script src="js/hightSearch.js"></script>
+    <!-- <script src="js/upload.js"></script> -->
+    <!-- <script src="js/pdf/generic/build/pdf.js"></script> -->
+</body>
+
+</html>

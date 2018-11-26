@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>docCloud文档管理云平台</title>
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="js/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <link href="js/magnify/dist/jquery.magnify.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/page.css">
+    <!-- <link rel="stylesheet" href="css/comfirm.css"> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #searchResult {
+            overflow: auto
+        }
+
+        .pagination-lg {
+            margin: 0px;
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+        }
+
+        #pageLimit {
+            margin: 0;
+            /* height: 20%; */
+            position: absolute;
+            bottom: 5px;
+            right: 22px;
+        }
+
+        .pagination-lg>li>a,
+        .pagination-lg>li>span {
+            font-size: 14px
+        }
+
+        .file-title-addr {
+            float: right;
+            width: 30%;
+            height: 100%;
+            line-height: 60px;
+        }
+        #frmPassword .form-control {
+            width: 60%;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 微云 -->
+    <div class="weiyun">
+        <!-- 头部 -->
+        <% include html/header.html %>
+        <!-- 主要内容区 -->
+        <div class="weiyun-content">
+            <!-- 左侧菜单区 -->
+            <div class="lay-aside">
+
+                <div id="_search_bar" class="mod-search">
+                    <div class="search-panel">
+                        <div class="search-input">
+                            <input id="search" placeholder="搜索全部" autocomplete="off" type="text" aria-label="输入文件名并按下回车进行搜索"
+                                tabindex="0" class="mod-input">
+                        </div>
+                        <div class="search-placeholder">
+                            <i class="icon icon-searchs"></i>
+                        </div>
+                    </div>
+                    <!-- <div class="mod-menu-group">
+                        <div class="menu-group">
+                            <div class="menu-group-hd">
+                                <p class="tit">历史记录</p>
+                                <div class="hd-act">
+                                    <a href="javascript:void(0)" class="btn-clear">清除记录</a>
+                                </div>
+                            </div>
+                            <div class="menu-group-bd">
+                                <ul class="menu-list">
+                                    <li class="menu-list-item">
+                                        <span class="item-txt">11</span>
+                                        <span title="删除" class="item-act">
+                                            <i class="icon icon-close"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="aside-box">
+                    <div class="aside-wrap">
+                        <ul class="nav-box">
+                            <!-- <li class="nav-list">
+                                <a href="#" class="link recent" title="最近">
+                                    <i></i>最近</a>
+                            </li>
+                            <li class="nav-gap">
+                                <span class="gap"></span>
+                            </li> -->
+                            <li class="nav-list summary">
+                                <a href="/summary" class="link doc" title="首页">
+                                    <i></i>首页</a>
+                            </li>
+                            <li class="nav-list file">
+                                <a href="/file" class="link all" title="目录">
+                                    <i></i>目录</a>
+                            </li>
+                            <!-- <li class="nav-list">
+                                <a href="/position" class="link doc" title="位置">
+                                    <i></i>位置</a>
+                            </li> -->
+                            <li class="nav-list hightSearch nav-current">
+                                <a href="/hightSearch" class="link pic" title="检索">
+                                    <i></i>检索</a>
+                            </li>
+                            <li class="nav-list report">
+                                <a href="/report" class="link" title="报表">
+                                    <i class="icon-bar-chart"></i>报表</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 右侧内容区域 -->
+            <div class="main">
+                <div style="height: 60px;background-color: #f7f7f7;position: relative;padding-bottom: 10px;box-sizing: border-box">
+                    <!-- <ul style="position: absolute;left:50%;margin-left: -211px;top: 50%;margin-top: -17px;"> -->
+                    <ul>
+                        <li style="float:left;margin-left: 10px;margin-top: 10px">
+                            <label style="float: left;line-height: 34px;margin: 0;width: 32px">分类</label>
+                            <select id="selD" class="form-control" style="height: 34px;width: 160px;box-sizing: border-box;">
+                                <!-- <option>工矿企业档案</option>
+                                <option>文书档案</option>
+                                <option>业务档案</option>
+                                <option>执法档案</option>
+                                <option>综合档案</option>
+                                <option>培训宣传档案</option> -->
+                            </select>
+                        </li>
+                        <li style="float:left;margin-left: 10px;margin-top: 10px">
+                            <label style="float: left;line-height: 34px;margin: 0;width: 32px">类别</label>
+                            <select id="selC" class="form-control" style="height: 34px;width: 90px;box-sizing: border-box;">
+                                <!-- <option>名称</option>
+                                <option>保存期限</option>
+                                <option>位置</option> -->
+                            </select>
+                        </li>
+                        <li style="float:left;margin-left: 10px;margin-top: 10px">
+                            <label style="float: left;line-height: 34px;margin: 0;width: 20%">名称</label>
+                            <input id="name" class="form-control" style="height: 34px;box-sizing: border-box;width: 80%" />
+                        </li>
+                        <li style="float:left;margin-left: 10px;margin-top: 10px">
+                            <label style="float: left;line-height: 34px;margin: 0;width: 20%">档号</label>
+                            <input id="onlyId" class="form-control" style="height: 34px;box-sizing: border-box;width: 80%" />
+                        </li>
+                        <li style="float:left;margin-left: 10px;margin-top: 10px">
+                            <label style="float: left;line-height: 34px;margin: 0;width: 20%">关键字</label>
+                            <input id="keyword" class="form-control" style="height: 34px;box-sizing: border-box;width: 80%" />
+                        </li>
+                        <li style="float:left;margin-left: 10px;margin-top: 10px">
+                            <button class="btn btn-primary" id="query" style="background: #0070c0;border-color: #0070c0">查询</button>
+                        </li>
+                    </ul>
+                </div>
+                <div id="searchResult">
+                    <!-- <div style="height: 400px;"></div> -->
+                    <!-- <div id="toolbar" class="btn-group">
+                        <button id="btn_add" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                        </button>
+                        <button id="btn_edit" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+                        </button>
+                        <button id="btn_delete" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+                        </button>
+                    </div> -->
+                    <!-- <table id="tb_departments">
+
+                    </table> -->
+                    <div class="file-show" style="padding: 0">
+
+                        <!-- 空白文件展示区 -->
+                        <div class="g-empty sort-folder-empty" style="display: block;">
+                            <div class="empty-box">
+                                <div class="ico"></div>
+                                <p class="title">暂无数据</p>
+                                <!-- <p class="content">检索数据为空</p> -->
+                            </div>
+                        </div>
+                        <!-- 文件展示区 -->
+                        <div class="file-list f_detail clearfix" style="text-align: center;padding-bottom: 43px;display: none;">
+                            <!-- 暂无数据 -->
+                        </div>
+                    </div>
+                    <!-- <div id="page"> -->
+                    <ul class="pagination pagination-lg" id="pageLimit">
+
+                    </ul>
+                    <!-- </div> -->
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- 提示信息 -->
+    <div class="full-tip-box">
+        <span class="full-tip">
+            <span class="inner">
+                <i class="ico"></i>
+                <span class="text" data-id="label">新建文件夹成功!</span>
+            </span>
+        </span>
+    </div>
+    <div class="dialogDivP hide">
+        <% include dialog/frmPassword.html %>
+    </div>
+
+    <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="js/jquery/jquery-1.12.4.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/bootstrap/jquery-migrate-1.2.1.js"></script>
+    <script src="js/bootstrap-table/bootstrap-table.js"></script>
+
+    <script src="js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="js/bootstrap-table/bootstrap-paginator.js"></script>
+    <script src="js/jquery/jquery-ui.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/magnify/dist/jquery.magnify.js"></script>
+    <script src="js/jquery/jquery.cookie.js"></script>
+    <script src="js/js-spark-md5/spark-md5.min.js"></script>
+    <script src="js/wistorm/localApi.js"></script>
+    <script src="js/system.js"></script>
+    <script src="js/wistorm/md5.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/handledata.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/htmlTemplate.js"></script>
+    <script src="js/account.js"></script>
+    <script src="js/hightSearch.js"></script>
+    <!-- <script src="js/upload.js"></script> -->
+    <!-- <script src="js/pdf/generic/build/pdf.js"></script> -->
+</body>
+
+</html>

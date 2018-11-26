@@ -1,0 +1,233 @@
+.header {
+    min-width: 1280px;
+}
+.mod-act-group {
+    float: right;
+    margin: 0 10px 0 0
+}
+
+.mod-act-group {
+    font-size: 14px
+}
+
+.mod-act-group .act-item {
+    position: relative;
+    float: left;
+    margin: 0 0 0 14px;
+    line-height: 64px
+}
+
+.mod-act-group .act-item:first-child {
+    margin-left: 0
+}
+
+.mod-act-group .act-item-con {
+    position: absolute;
+    right: 0
+}
+
+.mod-user,
+.mod-user .user-info {
+    height: 24px
+}
+
+.mod-act-group .mod-bubble-menu {
+    left: auto;
+    right: 0;
+    top: 37px;
+    opacity: 0;
+    display: none;
+    transition: all .3s
+}
+.mod-bubble-menu {
+    position: absolute;
+    z-index: 100;
+    top: 80px;
+    left: 500px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 260px;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 6px 0;
+}
+.mod-act-group .act-item-acc.act .mod-bubble-menu {
+    display: block;
+    opacity: 1
+}
+
+
+
+.mod-act-group .mod-user {
+    margin: 13px 0 0;
+    width: 85px
+
+}
+
+.mod-user {
+    position: relative;
+    line-height: 24px;
+    z-index: 9;
+    border-radius: 2px;
+    padding: 0 3px 0 6px;
+    cursor: pointer
+}
+
+.act .mod-user,
+.mod-user:hover {
+    /* background: #EAEAEA */
+}
+
+.mod-user .name {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60px;
+    position: relative;
+    top: -1px
+}
+
+.icon-trig {
+    width: 16px;
+    height: 16px;
+    background-image: url(../img/svg/icon-trig.svg);
+    position: relative;
+    top: 4px
+}
+
+.mod-user .icon-trig {
+    transform: rotate(0);
+    transition: all .3s
+}
+.act .mod-user .icon-trig {
+    transform: rotate(180deg);
+}
+
+
+.mod-info-box .info-con {
+    font-size: 12px;
+    color: #777;
+    padding: 4px 0 0
+}
+
+.mod-info-box .info-con .info-icon,
+.mod-info-box .info-con .info-link,
+.mod-info-box .info-con .info-txt {
+    position: relative;
+    vertical-align: middle;
+    margin-right: 8px
+}
+
+.mod-info-box .info-box-con,
+.mod-info-box .info-box-pic {
+    margin: 0 12px 0 0;
+    overflow: hidden
+}
+
+
+.mod-info-box {
+    height: 100px;
+    background: #F4F4F4
+}
+
+.mod-info-box .info-box-bd {
+    padding: 29px 0 0 24px
+}
+
+.mod-info-box .info-box-pic {
+    width: 48px;
+    height: 48px;
+    border-radius: 2px;
+    float: left
+}
+
+.mod-info-box .info-box-pic .pic {
+    width: 100%;
+    height: 100%
+}
+
+.mod-info-box .info-box-con .name {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 18px;
+    vertical-align: middle
+}
+
+.mod-info-box .info-box-con .txt {
+    font-size: 12px;
+    color: #777;
+    margin: 4px 0 0
+}
+
+.mod-info-box .info-link {
+    color: #845925;
+    margin: 0 0 0 8px
+}
+
+
+
+.mod-bubble-menu-info {
+    width: 154px;
+    padding-top: 0
+}
+
+
+
+.mod-bubble-menu-info .mod-info-box {
+    line-height: normal;
+    margin: -1px -1px 6px;
+    border: 1px solid #C8CCD3;
+    border-bottom: 0 none;
+    border-radius: 2px 2px 0 0;
+    background-size: 100% auto;
+    overflow: hidden
+}
+
+
+.mod-bubble-menu-info .info-box-hd .tit {
+    padding: 22px 0 0
+}
+
+
+.mod-bubble-menu-info .mod-info-box .name a {
+    color: #020202
+}
+
+.mod-bubble-menu .menu-item {
+    cursor: pointer;
+    position: relative;
+    z-index: 0
+}
+
+.mod-bubble-menu .menu-item:hover .txt {
+    background-color: #F4F4F4
+}
+
+
+.mod-bubble-menu .menu-item .spliter {
+    height: 1px;
+    margin: 6px 0;
+    background-color: #0f2042;
+    background-color: rgba(15, 32, 66, .06)
+}
+
+.mod-bubble-menu .menu-item .txt {
+    display: block;
+    font-size: 14px;
+    color: #020202;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 0 0 22px;
+    position: relative
+}
+
+.mod-bubble-menu.with-border {
+    border: 1px solid #C8CCD3;
+}
+

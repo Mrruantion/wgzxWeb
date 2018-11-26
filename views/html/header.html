@@ -1,0 +1,39 @@
+<header class="header">
+    <a href="#" class="logo2">
+        <img src="img/icon.png" style="width:44px;vertical-align: middle; position: relative;top: -2px;">
+        <%= user.titleName %>
+    </a>
+    <div class="mod-act-group">
+        <div class="act-item act-item-acc">
+            <div class="act-item-txt">
+                <div class="mod-user">
+                    <div class="user-info">
+                        <span title="<%= user.name %>" class="name">
+                            <%= user.name %>
+                        </span>
+                        <i class="icon icon-trig"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="mod-bubble-menu mod-bubble-menu-info with-border">
+                <ul>
+                    <li class="menu-item" id="usermanage">
+                        <span class="txt">用户管理</span>
+                        <div class="spliter"></div>
+                    </li>
+                    <li class="menu-item" id="passSet">
+                        <span class="txt">密码设置</span>
+                        <div class="spliter"></div>
+                    </li>
+                    <li class="menu-item" id="sysCopy">
+                        <span class="txt">系统备份</span>
+                        <div class="spliter"></div>
+                    </li>
+                    <li class="menu-item logout">
+                        <span class="txt">退出登录</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,106 @@
+<div id="divDocPro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" title="属性">
+    <ul>
+        <!-- <li style="margin-top: 10px">
+            <label class="ellipsis">名称</label>
+            <input id="name" value="" class="form-control">
+        </li>
+        <li style="margin-top: 10px">
+            <label class="ellipsis">保存年限</label>
+            <input id="saveExpireIn" value="" class="form-control">
+        </li>
+        <li style="margin-top: 10px">
+            <label class="ellipsis">建档日期</label>
+            <input id="createdAt" value="" class="form-control" />
+        </li> -->
+        <li style="margin-top: 10px">
+            <label class="ellipsis">档号</label>
+            <input id="did" value="" class="form-control" />
+        </li>
+        <!-- <li style="margin-top: 10px">
+            <label class="ellipsis">件数</label>
+            <input id="num" value="" class="form-control" />
+        </li> -->
+        <li style="margin-top: 10px">
+            <label class="ellipsis">位置</label>
+            <!-- <div class="quNumber">
+                <span class="quNumberName">区号</span>
+                <select class="form-control" id="qnum" style="width: 85%;padding:3px;font-size: 14px;">
+                    <option></option>
+                </select>
+            </div> -->
+            <div class="quNumber">
+                <span class="quNumberName">列号</span>
+                <select class="form-control" id="lnum" style="width: 85%; padding:3px;font-size: 14px;">
+                    <option></option>
+                </select>
+            </div>
+            <!-- <div class="quNumber">
+                <span class="quNumberName">节号</span>
+                <select class="form-control" id="jnum" style="width: 85%;padding:3px;font-size: 14px;">
+                    <option></option>
+                </select>
+            </div>
+            <div class="quNumber">
+                <span class="quNumberName">层号</span>
+                <select class="form-control" id="cnum" style="width: 85%;padding:3px;font-size: 14px;">
+                    <option value="1">1</option>
+                    <option value="2">3</option>
+                    <option value="4">1</option>
+                    <option value="1">1</option>
+                    <option value="1">1</option>
+                </select>
+            </div> -->
+            <div class="quNumber">
+                <span class="quNumberName">左/右侧</span>
+                <select class="form-control" id="ce" style="width: 85%;padding:3px;">
+                    <option value="l">左</option>
+                    <option value="r">右</option>
+                </select>
+            </div>
+            <!-- <div class="quNumber">
+                <span class="quNumberName">左/右侧</span>
+                <select class="form-control" id="ce" style="width: 85%;padding:3px;">
+                    <option value="l">左</option>
+                    <option value="r">右</option>
+                </select>
+            </div> -->
+            <div class="quNumber" style="top: -2px;">
+                <span class="quNumberName">其他</span>
+                <input class="form-control" id="onum" style="width: 85%;padding:3px;">
+            </div>
+        </li>
+        <!-- <li style="margin-top: 10px">
+            <label class="ellipsis">页数</label>
+            <input id="page" value="" class="form-control" />
+            <span class="glyphicon glyphicon-plus" id="addCustom" title="添加自定义属性" style="font-size: 17px;top: 4px;left: 5px;cursor: pointer;"
+                aria-hidden="true"></span>
+        </li> -->
+        <div id="newPropLi">
+            <!-- <li style="margin-top: 10px">
+                        <label class="ellipsis">页数</label>
+                        <input id="page" value="" class="form-control" />
+                        <span class="glyphicon glyphicon-plus" id="addCustom" title="添加自定义属性" style="font-size: 17px;top: 4px;left: 5px;cursor: pointer;" aria-hidden="true"></span>
+                    </li> -->
+        </div>
+    </ul>
+</div>
+
+<div id="selectProp" style="display: none">
+    <div style="margin-top: 10px">
+        <label class="ellipsis">自定义属性</label>
+        <select class="form-control" id="someProp">
+            <option value="0">可选属性</option>
+            <!-- <option value="1">新增属性</option> -->
+        </select>
+        <button class="btn btn-primary" id="newProp">添加新属性</button>
+    </div>
+</div>
+
+<div id="newCustomProp" style="display: none">
+    <ul>
+        <li style="margin-top: 10px">
+            <label class="ellipsis">名称</label>
+            <input id="newPropname" value="" class="form-control">
+        </li>
+    </ul>
+</div>

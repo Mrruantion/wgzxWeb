@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>docCloud文档管理云平台</title>
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="js/magnify/dist/jquery.magnify.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/page.css">
+    <!-- <link rel="stylesheet" href="css/comfirm.css"> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <!-- 微云 -->
+    <div class="weiyun">
+        <!-- 头部 -->
+        <header class="header">
+            <a href="#" class="logo2">docCloud文档管理云平台</a>
+            <div class="mod-act-group">
+                <div class="act-item act-item-acc">
+                    <div class="act-item-txt">
+                        <div class="mod-user">
+                            <div class="user-info">
+                                <span title="(๑°ㅁ°๑)" class="name">
+                                    <%= user.name %>
+                                </span>
+                                <i class="icon icon-trig"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mod-bubble-menu mod-bubble-menu-info with-border">
+                        <ul>
+                            <!-- <li class="menu-item">
+                                <span class="txt">用户管理</span>
+                                <div class="spliter"></div>
+                            </li>
+                            <li class="menu-item">
+                                <span class="txt">权限管理</span>
+                                <div class="spliter"></div>
+                            </li> -->
+                            <li class="menu-item logout">
+                                <span class="txt">退出登录</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- 主要内容区 -->
+        <div class="weiyun-content">
+            <!-- 左侧菜单区 -->
+
+            <!-- 右侧内容区域 -->
+            <div class="main">
+                <!-- 工具菜单导航 -->
+                <div class="nav">
+                    <nav class="nav-collects clearfix ">
+                        <div class="upload-ff hide">
+                            <a href="#" class="nav-a upload">
+                                <span>
+                                    <i></i>
+                                    <span>上传</span>
+                                </span>
+                            </a>
+                            <div class="upload-file">
+                                <ul>
+                                    <li class="upload-item">
+                                        <span class="txt">
+                                            <i class="icon icon-doc-s"></i>文件</span>
+                                    </li>
+                                    <li class="upload-item">
+                                        <span class="txt">
+                                            <i class="icon icon-file-s"></i>文件夹</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="create_file hide">
+                            <a href="#" class="nav-a create">
+                                <span>
+                                    <i></i>
+                                    <span>新建文件夹</span>
+                                </span>
+                            </a>
+                            <div class="create-file">
+                                <ul>
+                                    <li class="create-item" id="folder1">
+                                        <span class="txt">
+                                            <i class="icon icon-doc-s"></i>文档</span>
+                                    </li>
+                                    <li class="create-item" id="folder2">
+                                        <span class="txt">
+                                            <i class="icon icon-file-s"></i>案卷</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mod-nav hide">
+                            <div class="mod-action-wrap mod-action-wrap-c mod-action-wrap-menu clearfix" style="">
+                                <div class="action-item">
+                                    <div class="action-item-con">
+                                        <i class="icon icon-download"></i>
+                                        <span class="act-txt">下载</span>
+                                    </div>
+                                </div>
+                                <div class="action-item">
+                                    <div class="action-item-con">
+                                        <i class="icon icon-removes"></i>
+                                        <span class="act-txt">移动</span>
+                                    </div>
+                                </div>
+                                <div class="action-item rename">
+                                    <div class="action-item-con">
+                                        <i class="icon icon-rename"></i>
+                                        <span class="act-txt">重命名</span>
+                                    </div>
+                                </div>
+                                <div class="action-item delete">
+                                    <div class="action-item-con">
+                                        <i class="icon icon-trash"></i>
+                                        <span class="act-txt">删除</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="nav-prop hide" style="position: relative;">
+                            <div style="float: left;margin: 13px 16px 0 30px;">
+                                <button class="btn btn-primary" id="someProo">批量设置属性</button>
+                            </div>
+                        </div>
+
+                        <!-- <div class="nav-prop" style="position: relative;">
+                            <div style="float: left;margin: 13px 16px 0 30px;">
+                                <button class="btn btn-primary" id="export">导入</button>
+                            </div>
+                        </div> -->
+
+                        <div id="btn-change">
+                            <div class="mod-action-wrap mod-action-wrap-c clearfix" style="border:0px">
+                                <div class="action-item act">
+                                    <div class="action-item-con">
+                                        <i class="icon icon-mode-list"></i>
+                                        <span class="act-txt">列表</span>
+                                    </div>
+                                </div>
+                                <div class="action-item">
+                                    <div class="action-item-con">
+                                        <i class="icon icon-mode-thumb"></i>
+                                        <span class="act-txt">缩略图</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <a href="#" class="nav-a reload">
+                            <span>
+                                <i></i>
+                                <span>刷新</span>
+                            </span>
+                        </a> -->
+                    </nav>
+                </div>
+                <!-- 主要内容展示区 -->
+                <div class="content clearfix">
+
+                    <!-- 文件展示区 -->
+                    <div class="file-show">
+                        <!-- 文件路径导航 -->
+                        <div class="path-nav-box clearfix">
+                            <lable class="cheched-all"></lable>
+                            <div class="path-nav clearfix">
+
+                            </div>
+                        </div>
+                        <!-- 空白文件展示区 -->
+                        <div class="g-empty sort-folder-empty">
+                            <div class="empty-box">
+                                <div class="ico"></div>
+                                <p class="title">暂无文件</p>
+                                <!-- <p class="content">请点击左上角的“上传”按钮添加文件</p> -->
+                            </div>
+                        </div>
+                        <!-- 文件展示区 -->
+                        <div class="file-list f_detail clearfix">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 提示信息 -->
+    <div class="full-tip-box">
+        <span class="full-tip">
+            <span class="inner">
+                <i class="ico"></i>
+                <span class="text" data-id="label">新建文件夹成功!</span>
+            </span>
+        </span>
+    </div>
+
+    <div class="mod-tasks" style="visibility: visible;display: none">
+        <div class="operation">
+            <button aria-hidden="true" class="btn btn-icon" id="showList">
+                <i class="icon icon-window-fold"></i>
+            </button>
+            <button aria-label="关闭" class="btn btn-icon" id="hideList">
+                <i class="icon icon-close"></i>
+            </button>
+        </div>
+        <!-- result-succ -->
+        <div class="tasks-header tasking-nor">
+            <div class="summary-wrapper">
+                <b class="before" style="transform: scaleX(0);"></b>
+                <i class="icon icon-status"></i>
+                <p class="txt"></p>
+            </div>
+            <div class="title-wrapper">
+                <div class="info">
+                    <p class="txt txt-sub"></p>
+                </div>
+                <h2 class="title">任务已完成</h2>
+            </div>
+        </div>
+        <div class="tasks-body">
+            <div class="tasks-cont">
+                <div class="tasks-op-wrapper">
+                    <ul class="op-list">
+
+                    </ul>
+                </div>
+                <div class="tasks-group-wrapper">
+                    <div class="tasks-group-viewport">
+                        <div class="tasks-list-wrapper" style="">
+                            <ul class="task-list-cont">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialogDivP hide">
+        <% include dialog/frmDocPro.html %>
+    </div>
+
+    <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="js/jquery/jquery-1.12.4.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="js/jquery/jquery-ui.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/magnify/dist/jquery.magnify.js"></script>
+    <script src="js/jquery/jquery.cookie.js"></script>
+    <script src="js/js-spark-md5/spark-md5.min.js"></script>
+    <script src="js/wistorm/localApi.js"></script>
+    <script src="js/system.js"></script>
+    <script src="js/wistorm/md5.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/handledata.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/htmlTemplate.js"></script>
+    <script src="js/csv2arr/papaparse.js"></script>
+    <script src="js/csv2arr/jschardet.js"></script>
+    <script src="js/csv2arr/csv2arr.js"></script>
+    <script src="js/csv2arr/xlsx.full.min.js"></script>
+    <!-- <script src="js/index.js"></script> -->
+    <script src="js/upload.js"></script>
+    <!-- <script src="js/pdf/generic/build/pdf.js"></script> -->
+</body>
+
+</html>

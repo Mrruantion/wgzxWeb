@@ -1,0 +1,89 @@
+<div id="divDocAudit" tabindex="-1"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" title="">
+    <form id="frmDocAudit" class="form-horizontal">
+        <div class="modal-body form-horizontal" style="padding: 0;">
+            <div class="control-group" style="text-align: center" class="hide">
+                <span>
+                    <label for="pass">通过</label>
+                    <input type="radio" name="audit" id="pass" value="1" checked="checked" style="position: relative;top: 3px;">
+                </span>
+                <span>
+                    <label for="nopass">不通过</label>
+                    <input type="radio" name="audit" id="nopass" value="2" style="position: relative;top: 3px;">
+                </span>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="divDocLock" tabindex="-1"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" title="">
+    <form id="frmDocLock" class="form-horizontal">
+        <div class="modal-body form-horizontal" style="padding: 0;">
+            <div class="control-group" style="text-align: center" class="hide">
+                <span>
+                    <label for="lock">加锁</label>
+                    <input type="radio" name="audit" id="lock" value="2" checked="checked" style="position: relative;top: 3px;">
+                </span>
+                <span>
+                    <label for="unlock">解锁</label>
+                    <input type="radio" name="audit" id="unlock" value="1" style="position: relative;top: 3px;">
+                </span>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div id="divDocSort" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" title="">
+    <form id="frmDocSort" class="form-horizontal">
+        <div class="modal-body form-horizontal" style="padding: 0;">
+            <div class="control-group" style="text-align: center" class="hide">
+                <span>
+                    <label for="__did" value="档号">档号</label>
+                    <input type="checkbox" id="__did" value="did" style="position: relative;top: 3px;">
+                </span>
+                <span>
+                    <label for="__type" value="文档类型">文档类型</label>
+                    <input type="checkbox" id="__type" value="type" style="position: relative;top: 3px;">
+                </span>
+                <span>
+                    <label for="__name" value="文档名称">文档名称</label>
+                    <input type="checkbox" id="__name" value="name" style="position: relative;top: 3px;">
+                </span>
+                <span>
+                    <label for="__createdAt" value="创建时间">创建时间</label>
+                    <input type="checkbox" id="__createdAt" value="createdAt" style="position: relative;top: 3px;">
+                </span>
+                <span>
+                    <label for="__id" value="序号">序号</label>
+                    <input type="checkbox" id="__id" value="id" style="position: relative;top: 3px;">
+                </span>
+            </div>
+            <div class="control-group" style="text-align: center">
+                <span>
+                    <label for="sequence">顺序↓</label>
+                    <input type="radio" name="sort" id="sequence" value="2" checked="checked" style="position: relative;top: 3px;">
+                </span>
+                <span>
+                    <label for="Reverse">倒序↑</label>
+                    <input type="radio" name="sort" id="Reverse" value="1" style="position: relative;top: 3px;">
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="divDocImport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" title="">
+    <form id="frmDocImport" class="form-horizontal">
+        <div class="modal-body form-horizontal" style="padding: 0;">
+            <div class="control-group" style="text-align: center" class="hide">
+               <select id="DocImport">
+                   <option value="1">登记备案合同</option>
+                   <option value="2">编码卡资料</option>
+                   <option value="3">调阅资料</option>
+               </select>
+            </div>
+        </div>
+    </form>
+</div>
