@@ -73,6 +73,7 @@ strong, i{
 }
 #divDocPro .ellipsis,
 #newCustomProp .ellipsis,
+#newCustomTable .ellipsis,
 #selectProp .ellipsis
  {
     width: 20%;
@@ -83,6 +84,7 @@ strong, i{
 }
 #divDocPro ul .form-control,
 #newCustomProp ul .form-control,
+#newCustomTable ul .form-control,
 #divaddUser ul .form-control
 {
     width: 60%;

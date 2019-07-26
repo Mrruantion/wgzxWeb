@@ -6866,15 +6866,27 @@ function webViewerLoad(evt) {
   var _url = `docshow?fileId=${params.fileid}`
   $.ajax(_url, {
       data: {},
+      timeout:3000000,
       dataType: 'json',
       success: function (res) {
           // console.log(res);
-          DEFAULT_URL = res.path ;
+          DEFAULT_URL =res.path;
+          // DEFAULT_URL = toArrayBuffer(res.path2.data)
+          // DEFAULT_URL.__proto__.lastIndexOf = function(){return false}
           PDFViewerApplication.initialize().then(webViewerInitialized);
           // loadPDF(res.path);
       }
   })
 }
+function toArrayBuffer(buf) {
+  var ab = new ArrayBuffer(buf.length);
+  var view = new Uint8Array(ab);
+  for (var i = 0; i < buf.length; ++i) {
+    view[i] = buf[i];
+  }
+  return view;
+}
+
 
 function webViewerInitialized() {
   var queryString = document.location.search.substring(1);

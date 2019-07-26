@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>docCloud文档管理云平台</title>
+    <title>宝文综合电子档案管理系统</title>
     <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <!-- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -47,14 +47,18 @@
             min-width: 1120px;
             display: flex
         }
+
         #searchType:focus,
-        #userTypeSel:focus{
+        #userTypeSel:focus {
             outline: none
         }
-        #searchType,#userTypeSel{
+
+        #searchType,
+        #userTypeSel {
             box-sizing: border-box;
             font-size: 12px;
         }
+
         #userKey {
             font-size: 12px;
         }
@@ -75,7 +79,8 @@
                 <div id="_search_bar" class="mod-search">
                     <div class="search-panel">
                         <div class="search-input">
-                            <input id="search" placeholder="搜索全部" autocomplete="off" type="text" aria-label="输入文件名并按下回车进行搜索" tabindex="0" class="mod-input">
+                            <input id="search" placeholder="搜索全部" autocomplete="off" type="text"
+                                aria-label="输入文件名并按下回车进行搜索" tabindex="0" class="mod-input">
                         </div>
                         <div class="search-placeholder">
                             <i class="icon icon-searchs"></i>
@@ -105,6 +110,16 @@
                                 <a href="/report" class="link" title="报表">
                                     <i class="icon-bar-chart"></i>报表</a>
                             </li>
+
+                            <li class="nav-list access">
+                                <a href="/access" class="link" title="查阅调阅">
+                                    <i class="icon-search"></i>查阅调阅</a>
+                            </li>
+
+                            <li class="nav-list designSet">
+                                <a href="/designSet" class="link" title="门类功能">
+                                    <i class="icon-cogs"></i>门类功能</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -117,14 +132,16 @@
                     </p>
                 </ul>
                 <div id="users" class="span9">
-                    <div class="input-append pull-left" style="height: 32px; line-height: 32px; font-size: 14px; padding-bottom: 0px">
+                    <div class="input-append pull-left"
+                        style="height: 32px; line-height: 32px; font-size: 14px; padding-bottom: 0px">
                         <span style="color: #0070c0;">选中用户：</span>
                         <span id="selCustName"></span>
                     </div>
                     <!-- <div class="input-append pull-right" style="height: 32px; line-height: 32px; font-size: 14px; padding-bottom: 0px">
                         <button id="addUser" class="btn btn-primary" style="font-size: 12px">新增</button>
                     </div> -->
-                    <div class="input-append pull-right" style="height: 32px; line-height: 32px; font-size: 0px; padding-bottom: 0px;letter-spacing: -3px;">
+                    <div class="input-append pull-right"
+                        style="height: 32px; line-height: 32px; font-size: 0px; padding-bottom: 0px;letter-spacing: -3px;">
                         <select id="userTypeSel" class="input-small">
                             <option value="1" data-i18n="customer.name">客户</option>
                             <option value="2" data-i18n="customer.name">账号</option>
@@ -133,11 +150,13 @@
                             <option value="name" data-i18n="customer.name">名称</option>
                             <option value="account" data-i18n="customer.name">账号</option>
                         </select>
-                        <input id="userKey" class="input-medium" type="text" data-provide="typeahead" data-items="5" autocomplete="off" data-source="" placeholder="搜索用户">
+                        <input id="userKey" class="input-medium" type="text" data-provide="typeahead" data-items="5"
+                            autocomplete="off" data-source="" placeholder="搜索用户">
                         <button id="addUser" class="btn btn-primary" style="font-size: 12px">新增</button>
                     </div>
                     <div id="customer_panel">
-                        <table class="table table-hover table-striped table-bordered" width="100%" cellpadding="0" cellspacing="0" border="0" id="user_list">
+                        <table class="table table-hover table-striped table-bordered" width="100%" cellpadding="0"
+                            cellspacing="0" border="0" id="user_list">
                             <thead>
                                 <tr class="tops">
                                     <th width="20px" style="text-align: center !important;">

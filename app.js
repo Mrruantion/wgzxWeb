@@ -7,7 +7,9 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 // var upload = require('./routes/multerUtil')
 // var multer = require('multer');
-var upload = require('./routes/multerUtil')(__dirname);
+// var absolute = 'c:/D'
+var absolute = __dirname
+var upload = require('./routes/multerUtil')(absolute);
 
 
 var indexRouter = require('./routes/index');
@@ -68,7 +70,7 @@ function getIPAdress(){
 
 app.use(function (req, res, next) {
   req.con = { query: query };
-  req.___dirname = __dirname;
+  req.___dirname = absolute;
   next();
   // let ip = getClientIp(req).match(/\d+.\d+.\d+.\d+/);
   // ip = ip ? ip.join('.') : null;
@@ -106,6 +108,16 @@ app.use(bodyParser.json());//数据JSON类型
 // app.use(multer()); // for parsing multipart/form-data
 
 app.use('/', indexRouter);
+// app.get('/Sql', function (req, res) {
+//   let path = req.query.path;
+//   let name = req.query.name
+//   let load = fs.createReadStream(path); //创建输入流入口
+//   res.writeHead(200, {
+//     'Content-Type': 'application/force-download',
+//     'Content-Disposition': 'attachment; filename='+encodeURI(name)
+//   });
+//   load.pipe(res);// 通过管道方式写入
+// })
 app.use('/users', usersRouter);
 app.get('/restart', function (req, res) {
   process.exit(0);

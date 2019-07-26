@@ -6,7 +6,9 @@ var exec = require('child_process').exec;
 var xlsx = require('node-xlsx');
 
 
-exports.rest = function (req, res) {
+
+
+var rest = function (req, res) {
     var query = req.query;
     // var body = req.body;
     var method = '', table = '', _fsHandle, table2;
@@ -21,35 +23,47 @@ exports.rest = function (req, res) {
     if (islogin) {
         if (access_token == req.session.app_key) {
             switch (method) {
-                case 'sys': sysCopy(req, res, table)
+                case 'sys': sysCopy(req, res, table) //数据库备份
                     break;
-                case 'fs': fsHandle(req, res, _fsHandle);
+                case 'fs': fsHandle(req, res, _fsHandle); //操作文件
                     break;
-                case 'get': _get(req, res, table);
+                case 'get': _get(req, res, table); //获取单列数据
                     break;
-                case 'list': _list(req, res, table);
+                case 'list': _list(req, res, table); //获取多列数据
                     break;
                 case 'vlist': _vagueList(req, res, table);
                     break;
-                case 'delete': _delete(req, res, table);
+                case 'delete': _delete(req, res, table); //删除数据
                     break;
-                case 'create': _create(req, res, table);
+                case 'deleteUnion': unionDelete(req, res, table, table2); //删除数据
                     break;
-                case 'createBatch': createBatch(req, res, table);
+                case 'create': _create(req, res, table); //创建数据
+                    break;
+                case 'createBatch': createBatch(req, res, table); //创建多个数据
                     break
-                case 'update': update(req, res, table);
+                case 'update': update(req, res, table); //更新数据
                     break;
-                case 'createColumns': addcolumns(req, res, table);
+                case 'createColumns': addcolumns(req, res, table); //创建多个表字段
                     break;
-                case 'createColumn': addcolumn(req, res, table);
+                case 'createColumn': addcolumn(req, res, table); //创建单个字段
                     break;
-                case 'getColumns': showColumns(req, res, table);
+                case 'dropColumn': dropColumn(req, res, table);
                     break;
-                case 'union': tableUnion(req, res, table, table2);
+                case 'createTable': createTable(req, res, table); //创建表
                     break;
-                case 'login': login(req, res, 'user');
+                case 'dropTable': dropTable(req, res, table); //删除表
                     break;
-                case 'repassword': repassord(req, res, 'user');
+                case 'getTable': getTable(req, res, table); //获取数据库表
+                    break;
+                case 'editTableColumns': editTableColumns(req, res, table);
+                    break;
+                case 'getColumns': showColumns(req, res, table); //获取表字段
+                    break;
+                case 'union': tableUnion(req, res, table, table2); //两表查询
+                    break;
+                case 'login': login(req, res, 'user'); //登录
+                    break;
+                case 'repassword': repassord(req, res, 'user'); //重新设置密码
                     break;
                 default:
                     break;
@@ -101,7 +115,9 @@ function _get(req, res, table) {
     })
 }
 
-function _vagueList(req, res, table) {
+
+
+function _vagueList(req, res, table, callback) {
     var query = req.query;
     var obj = req.body;
     var sorts, limit, fields, page_no, query_json = {};
@@ -128,6 +144,32 @@ function _vagueList(req, res, table) {
     // var sql = 'select * from ' + table + ' where ' + condition;
     var countsql = `select count(*) from ${table} ${wvUrl(query_json)}`
     console.log(countsql)
+
+    var sorts = sorts ? sorts.split('|') : [];
+    var sortstr = '';
+    sorts.forEach(ele => {
+        if (ele) {
+            if (ele.indexOf('-') > -1) {
+                var s = ele.slice(ele.indexOf('-') + 1)
+
+                if (table == 'docProp' && s == '存放状态') {
+                    sortstr += 'convert(docProp.存放状态 using gbk) collate gbk_chinese_ci desc,'
+                } else {
+                    sortstr += s + ' desc,'
+                }
+            } else {
+                if (table == 'docProp' && ele == '存放状态') {
+                    sortstr += 'convert(docProp.存放状态 using gbk) collate gbk_chinese_ci asc,'
+                } else {
+                    sortstr += ele + ' asc,'
+                }
+
+            }
+        }
+    })
+    sortstr = sortstr.slice(0, sortstr.length - 1)
+
+
     db.query(countsql, function (err, row) {
         var result = {};
         if (err) {
@@ -135,8 +177,7 @@ function _vagueList(req, res, table) {
         }
         try {
             result.total = row[0]['count(*)'];
-            var querySql = `select ${fields} from ${table} ${wvUrl(query_json)} ${sorts ? `order by ${sorts}` : ''} ${limit > 0 ? `limit ${(page_no - 1) * limit},${limit}` : ''}`
-            // result.sql = querySql
+            var querySql = `select ${fields} from ${table} ${wvUrl(query_json)} ${sortstr ? `order by ${sortstr}` : ''} ${limit > 0 ? `limit ${(page_no - 1) * limit},${limit}` : ''}`
             db.query(querySql, function (err, rows) {
                 if (err) {
                     result.message = err.message;
@@ -149,18 +190,129 @@ function _vagueList(req, res, table) {
                         result.status = err.errno;
                     }
                 }
-                res.json(result)
+                if (callback) {
+                    callback(result)
+                } else {
+                    res.json(result)
+                }
+
             })
-            // result.sql = querySql
         } catch (error) {
             result.status = err.errno;
-            res.json(result)
+            if (callback) {
+                callback(result)
+            } else {
+                res.json(result)
+            }
+
+        }
+    })
+}
+
+function _vagueList2(req, res, table, otherquery, callback) {
+    var query = req.query;
+    var obj = req.body;
+    var sorts, limit, fields, page_no, query_json = {};
+    var db = req.con;
+    for (var i in query) {
+        switch (i) {
+            case 'sorts': sorts = query[i].trim()
+                break;
+            case 'limit': limit = query[i]
+                break;
+            case 'fields': fields = query[i].trim() || '*'
+                break;
+            case 'page_no': page_no = query[i];
+                break;
+            case 'access_token':
+            case 'method':
+                break;
+            default:
+                query_json[i] = query[i];
+                break;
+        }
+    }
+    Object.assign(query_json, obj)
+    var otherWhere = wUrl(otherquery);
+    var otherand = '';
+    var countsql = `select count(*) from ${table} ${wvUrl(query_json)}`
+    if (otherWhere.length > 7) { //otherquery存在时
+        otherand = otherWhere.replace('where', 'and');
+        countsql += otherand
+    }
+    console.log(countsql)
+
+    var sorts = sorts ? sorts.split('|') : [];
+    var sortstr = '';
+    sorts.forEach(ele => {
+        if (ele) {
+            if (ele.indexOf('-') > -1) {
+                var s = ele.slice(ele.indexOf('-') + 1)
+
+                if (table == 'docProp' && s == '存放状态') {
+                    sortstr += 'convert(docProp.存放状态 using gbk) collate gbk_chinese_ci desc,'
+                } else {
+                    sortstr += s + ' desc,'
+                }
+            } else {
+                if (table == 'docProp' && ele == '存放状态') {
+                    sortstr += 'convert(docProp.存放状态 using gbk) collate gbk_chinese_ci asc,'
+                } else {
+                    sortstr += ele + ' asc,'
+                }
+
+            }
+        }
+    })
+    sortstr = sortstr.slice(0, sortstr.length - 1)
+
+
+    db.query(countsql, function (err, row) {
+        var result = {};
+        if (err) {
+            result.message = err.message;
+        }
+        try {
+            result.total = row[0]['count(*)'];
+            var querySql = `select ${fields} from ${table} ${wvUrl(query_json)} ${sortstr ? `order by ${sortstr}` : ''} ${limit > 0 ? `limit ${(page_no - 1) * limit},${limit}` : ''}`
+            if (otherWhere.length > 7) { //otherquery存在时
+                querySql = `select ${fields} from ${table} ${wvUrl(query_json)} ${otherand} ${sortstr ? `order by ${sortstr}` : ''} ${limit > 0 ? `limit ${(page_no - 1) * limit},${limit}` : ''}`
+            }
+            console.log(querySql)
+            db.query(querySql, function (err, rows) {
+                if (err) {
+                    result.message = err.message;
+                    result.status = err.errno;
+                } else {
+                    try {
+                        result.status = 0;
+                        result.data = rows;
+                    } catch (errors) {
+                        result.status = err.errno;
+                    }
+                }
+                if (callback) {
+                    callback(result)
+                } else {
+                    res.json(result)
+                }
+
+            })
+        } catch (error) {
+            result.status = err.errno;
+            if (callback) {
+                callback(result)
+            } else {
+                res.json(result)
+            }
+
         }
     })
 }
 
 
-function _list(req, res, table) {
+
+function _list(req, res, table, callback) {
     var query = req.query;
     var sorts, limit, fields, page_no, query_json = {};
 
@@ -189,19 +341,19 @@ function _list(req, res, table) {
         if (ele) {
             if (ele.indexOf('-') > -1) {
                 var s = ele.slice(ele.indexOf('-') + 1)
-               
-                if(table == 'document' && s == 'name'){
+
+                if (table == 'document' && s == 'name') {
                     sortstr += 'convert(document.name using gbk) collate gbk_chinese_ci desc,'
-                }else {
+                } else {
                     sortstr += s + ' desc,'
                 }
             } else {
-                if(table == 'document' && ele == 'name'){
+                if (table == 'document' && ele == 'name') {
                     sortstr += 'convert(document.name using gbk) collate gbk_chinese_ci asc,'
-                }else {
+                } else {
                     sortstr += ele + ' asc,'
                 }
-                
+
             }
         }
     })
@@ -231,19 +383,29 @@ function _list(req, res, table) {
                         result.status = err.errno;
                     }
                 }
-                res.json(result)
+                if (callback) {
+                    callback(result)
+                } else {
+                    res.json(result)
+                }
+
             })
             // result.sql = querySql
         } catch (error) {
             result.status = err.errno;
-            res.json(result)
+            if (callback) {
+                callback(result)
+            } else {
+                res.json(result)
+            }
+
         }
     })
 }
 
 
 //两表左联查询
-function tableUnion(req, res, table, table2) {
+function tableUnion(req, res, table, table2, callback) {
     var query = req.query;
     var sorts, limit, fields, page_no, query_json = {}, joinCdn, exportTableheard;
 
@@ -273,11 +435,13 @@ function tableUnion(req, res, table, table2) {
     var sorts = sorts ? sorts.split('|') : [];
     var sortstr = '';
     sorts.forEach(ele => {
-        if (sorts.indexOf('-') > -1) {
-            var s = ele.slice(sorts.indexOf('-') + 1)
-            sortstr += s + ' desc,'
+        if (ele.indexOf('-') > -1) {
+            var s = ele.slice(ele.indexOf('-') + 1)
+            // sortstr += s + ' desc,'
+            sortstr += `convert(${s} using gbk) collate gbk_chinese_ci` + ' desc,'
         } else {
-            sortstr += ele + ' asc,'
+            // sortstr += ele + ' asc,'
+            sortstr += `convert(${ele} using gbk) collate gbk_chinese_ci` + ' asc,'
         }
     })
     sortstr = sortstr.slice(0, sortstr.length - 1)
@@ -308,13 +472,57 @@ function tableUnion(req, res, table, table2) {
                         result.err = errors
                     }
                 }
-                res.json(result)
+                if (callback) {
+                    callback(result)
+                } else {
+                    res.json(result)
+                }
+
             })
             // result.sql = querySql
         } catch (error) {
-            result.status = err.errno;
-            res.json(result)
+            if (callback) {
+                callback(result)
+            } else {
+                result.status = err.errno;
+                res.json(result)
+            }
+
         }
+    })
+}
+
+function unionDelete(req, res, table1, table2) {
+    var query = req.query;
+    var db = req.con;
+    var joinLeft = "";
+    var query_json = {};
+
+    for (var i in query) {
+        switch (i) {
+            case 'access_token':
+            case 'method':
+                break;
+            case 'joinCdn': joinLeft = query[i];
+                break;
+            default:
+                query_json[i] = query[i];
+                break;
+        }
+    }
+    var condition = wUrl(query_json)
+
+    let sql = `DELETE ${table1},${table2} from ${table1} LEFT JOIN ${table2} on ${joinLeft} ${condition}`
+    db.query(sql, function (err, row) {
+        console.log(err, 'err')
+        var data = {};
+        if (err) {
+            data.status = err.errno;
+            data.message = err.message;
+        } else {
+            data.status = 0;
+        }
+        res.json(data);
     })
 }
 
@@ -463,12 +671,13 @@ function update(req, res, table) {
 
 function showColumns(req, res, table) {
     var db = req.con;
-    var sql = `SHOW COLUMNS FROM ${table}`;
+    var sql = `SHOW FULL COLUMNS FROM ${table}`;
     db.query(sql, function (err, row) {
         res.send({ err, row })
     })
 }
 
+//添加字段
 function addcolumn(req, res, table) {
     var query = req.body;
     // res.send(query);
@@ -483,6 +692,10 @@ function addcolumn(req, res, table) {
 }
 
 
+
+
+
+//批量创建字段
 function addcolumns(req, res, table) {
     // var body = req.body;
     var body = JSON.parse(req.body.data).data;
@@ -501,8 +714,80 @@ function addcolumns(req, res, table) {
 
     // console.log(body)
     // res.send(data)
+}
+
+
+//删除表字段
+function dropColumn(req, res, table) {
+    var query = req.body
+    var db = req.con
+    var dropString = `ALTER TABLE ${table} DROP COLUMN ${query.name} `
+    db.query(dropString, function (err, row) {
+        res.send({ err: err, row: row })
+    })
 
 }
+
+
+//创建表格
+function createTable(req, res, table) {
+    var query = req.body
+    var db = req.con
+    var columns = JSON.parse(query.data)
+    var columnsString = ''
+    columns.forEach(e => {
+        if (e.type == 'datetime') {
+            columnsString += `\`${e.name}\` ${e.type} DEFAULT NULL COMMENT '${e.comment}',`
+        } else {
+            columnsString += `\`${e.name}\` ${e.type}(${e.size}) DEFAULT NULL COMMENT '${e.comment}',`
+        }
+
+    })
+
+    var createSql = `CREATE TABLE \`${table}\` (\`sid\` int(11) NOT NULL AUTO_INCREMENT,${columnsString} PRIMARY KEY (\`sid\`), UNIQUE KEY \`fid\` (\`fid\`)) ENGINE=InnoDB AUTO_INCREMENT=10665 DEFAULT CHARSET=utf8`
+    // console.log(createSql)
+    db.query(createSql, function (err, row) {
+        res.send({ err: err, row: row })
+    })
+}
+
+
+
+//删除表
+function dropTable(req, res, table) {
+    var db = req.con
+    var dropString = `DROP TABLE IF EXISTS \`${table}\`;`
+    db.query(dropString, function (err, row) {
+        res.send({ err: err, row: row })
+    })
+}
+
+//获取数据库表
+function getTable(req, res, table) {
+    // let sqlName = req.query.sqlName
+    var db = req.con;
+    let queryLink = `select table_name from information_schema.tables where table_schema='${table}'`
+    db.query(queryLink, function (err, row) {
+        res.send({ err: err, row: row })
+    })
+}
+
+function editTableColumns(req, res, table) {
+    var db = req.con
+    var query = req.query
+    // if(query.type == 1){//重命名
+    var oldColumn = query.oldColumn;
+    var newColumn = query.newColumn
+    var preColumn = query.preColumn
+    // }else { //排序
+
+    // }
+    let queryString = `ALTER TABLE \`${table}\` CHANGE COLUMN \`${oldColumn}\` \`${newColumn}\`  ${query.size} CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER \`${preColumn}\`;`
+    db.query(queryString, function (err, row) {
+        res.send({ err: err, row: row })
+    })
+}
+
 
 function login(req, res, table) {
     var query = req.query;
@@ -514,7 +799,7 @@ function login(req, res, table) {
         if (row.length) {
             req.session.isLogin = true;
             req.session.app_key = hex_md5.hex_md5(getString(10));
-            
+
             req.session.user = row[0]
             // if(row[0].tree_path == ",26,1"){
             //     req.session.user.titleName = "福永街道电子档案管理系统"
@@ -523,9 +808,9 @@ function login(req, res, table) {
             // }else if(row[0].tree_path == ",26,1,29") {
             //     req.session.user.titleName = "福永街道网格综合管理中心电子档案管理系统"
             // } else {
-            //     req.session.user.titleName = "docCloud文档管理云平台"
+            //     req.session.user.titleName = "宝文综合电子档案管理系统"
             // }
-            req.session.user.titleName = row[0].titleName || "docCloud文档管理云平台"
+            req.session.user.titleName = row[0].titleName || "宝文综合电子档案管理系统"
             var opt = {
                 status: 0,
                 data: req.session
@@ -565,28 +850,38 @@ function repassord(req, res, table) {
 
 function sysCopy(req, res, table) {
     // var name = new Date().format
-    var db = req.con;
+    // var db = req.con;
     var query = req.query;
-    var sql = `select * from ${table} where id = ${query.id}`
-    db.query(sql, function (err, rows) {
-        var row = rows[0];
-        var path = req.___dirname + '/' + row.name + '.sql';
-        if (row) {
-            var str = `mysqldump --single-transaction --flush-logs --master-data=2 -udocdb -pdoccloud2018 docdb > ${path}`
-            exec(str, function (err, stdout, srderr) {
-                console.log(err, stdout, srderr)
-                if (err) {
-                    res.send({ status: -1, err, stdout, srderr })
-                } else {
-                    res.send({ status: 0 })
-                }
+    // var sql = `select * from ${table} where id = ${query.id}`
+    // db.query(sql, function (err, rows) {
+    //     var row = rows[0];
+    var os = require('os');
+    os.tmpdir()
 
-            })
+    var path = os.tmpdir() + '/' + query.name;
+
+    // if (row) {
+    // var str = `mysqldump --single-transaction --flush-logs --master-data=2 -uroot -pdoccloud2018 docdb > ${path}`
+    var str = `mysqldump -hlocalhost  -P3306 -uroot -pdoccloud2018 docdb >  ${path}`
+
+    exec(str, function (err, stdout, srderr) {
+        console.log(err, stdout, srderr)
+        if (err) {
+
+            res.send({ status: -1, err, stdout, srderr })
+        } else {
+            res.send({ status: 0, path: path })
         }
+
     })
+    // }
+    // })
 
 
 }
+
+
+
 
 
 function wUrl(query_json) {
@@ -772,19 +1067,18 @@ function wUrl(query_json) {
     str += condition;
     return str;
 }
-exports.wUrl = wUrl
+
 
 function wvUrl(query_json) {
-    var str = ' where ';
+    var str = ' where (';
     var condition = '';
-    // var same_Con1 = [];
     for (var o in query_json) {
         var eo = query_json[o].toString();
         var e = eo;
         condition += o + ' like "%' + e + '%" or ';
     }
     condition = condition.slice(0, -4);
-    str += condition;
+    str += condition + ')';
     return str;
 }
 
@@ -827,4 +1121,15 @@ function exportXlsx(data, exportTablehead, req) {
     var buffer = xlsx.build([{ name: "sheet1", data: allArr }]);
     var path = req.___dirname + '/public/b.xlsx'
     fs.writeFileSync(path, buffer, 'binary');
+}
+
+
+module.exports = {
+    rest: rest,
+    _vagueList: _vagueList,
+    wUrl: wUrl,
+    wvUrl: wvUrl,
+    _list: _list,
+    tableUnion: tableUnion,
+    _vagueList2: _vagueList2
 }

@@ -79,7 +79,7 @@ var _get = function (path, callback) {
         dataType: "json",
         data: obj.data,
         async: true,
-        timeout: 30000,
+        timeout: 300000,
         success: obj.success,
         error: obj.error
     });
@@ -164,8 +164,19 @@ localApi.prototype._listUrl = function (table, query_json, fields, sorts, page_n
     // _get(path, callback);
 }
 
+/**
+ * @methods union 左联表查询
+ * @table {table1,table2}
+ * @query_json {} 查询条件
+ * @field 返回字段
+ * @sorts 排序
+ * @joinCdn 两表关联条件
+ * @exportTableheard 导出xlxs表头
+ * @page_no 页数
+ * @limit 列数
+ */
 
-localApi.prototype._listUnionUrl = function (table, query_json, fields, sorts, joinCdn, exportTableheard,page_no, limit, access_token, callback) {
+localApi.prototype._listUnionUrl = function (table, query_json, fields, sorts, joinCdn, exportTableheard, page_no, limit, access_token, callback) {
     this.init();
     this.sign_obj.method = table.table1 + '.union' + '.' + table.table2;
     this.sign_obj.access_token = access_token;
@@ -205,6 +216,21 @@ localApi.prototype._vlist = function (table, query_json, fields, sorts, page_no,
 localApi.prototype._delete = function (table, query_json, access_token, callback) {
     this.init();
     this.sign_obj.method = table + '.delete';
+    this.sign_obj.access_token = access_token;
+    for (var key in query_json) {
+        this.sign_obj[key] = query_json[key];
+    }
+    var params = raw2(this.sign_obj);
+    var path = this.path + params;
+    _get(path, function (obj) {
+        callback(obj);
+    });
+}
+
+localApi.prototype._deleteUnion = function (table, query_json, joinCdn,access_token, callback) {
+    this.init();
+    this.sign_obj.method = table.table1 + '.deleteUnion.' + table.table2;
+    this.sign_obj.joinCdn = joinCdn;
     this.sign_obj.access_token = access_token;
     for (var key in query_json) {
         this.sign_obj[key] = query_json[key];
@@ -258,6 +284,10 @@ localApi.prototype._createBatch = function (table, create_json, access_token, ca
     });
 };
 
+/**
+ * @method 创建单个表字段
+ * @create_json {name,size} 
+ */
 localApi.prototype._createColumn = function (table, create_json, access_token, callback) {
     this.init();
     this.sign_obj.method = table + '.createColumn';
@@ -271,6 +301,11 @@ localApi.prototype._createColumn = function (table, create_json, access_token, c
     });
 };
 
+/**
+ * @method 创建多个表字段
+ * @create_json {data:data:[{name,size}]} JSON.stringify
+ */
+
 localApi.prototype._createColumns = function (table, create_json, access_token, callback) {
     this.init();
     this.sign_obj.method = table + '.createColumns';
@@ -283,6 +318,53 @@ localApi.prototype._createColumns = function (table, create_json, access_token, 
         callback(obj);
     });
 };
+/**
+ * @method 删除字段
+ * @drop_json {name:字段名称}
+ */
+localApi.prototype.dropColumn = function(table,drop_json,access_token,callback){
+    this.init()
+    this.sign_obj.method = table + '.dropColumn';
+    this.sign_obj.access_token = access_token
+
+    var params = raw2(this.sign_obj);
+    var path = this.path + params;
+    _post(path,drop_json,function(obj){
+        callback(obj)
+    })
+}
+
+/**
+ * @method 创建表
+ * @table 表名
+ * @create_json {name,type,size,comment} 创建的表字段
+ * @return {err,row} 返回字段
+ */
+localApi.prototype._createTable = function (table, create_json, access_token, callback) {
+    this.init()
+    this.sign_obj.method = table + '.createTable';
+    this.sign_obj.access_token = access_token;
+    var params = raw2(this.sign_obj);
+    var path = this.path + params;
+    _post(path, create_json, function (obj) {
+        callback(obj);
+    });
+}
+/**
+ * @method 删除表
+ * @table 表名
+ * @return {err,row} 返回字段
+ */
+localApi.prototype._dropTable = function (table, access_token, callback) {
+    this.init()
+    this.sign_obj.method = table + '.dropTable';
+    this.sign_obj.access_token = access_token;
+    var params = raw2(this.sign_obj);
+    var path = this.path + params;
+    _get(path, function (obj) {
+        callback(obj);
+    });
+}
 
 localApi.prototype._update = function (table, query_json, update_json, access_token, callback) {
     this.init();
@@ -315,6 +397,31 @@ localApi.prototype.getTableColumns = function (table, access_token, callback) {
     var path = this.path + params;
     _get(path, callback)
 }
+
+localApi.prototype.getTable = function (informationSchema, access_token, callback) {
+    this.init();
+    this.sign_obj.method = informationSchema + '.getTable';
+    this.sign_obj.access_token = access_token;
+  
+    var params = raw2(this.sign_obj);
+    var path = this.path + params;
+    _get(path, callback)
+}
+
+
+localApi.prototype.editTableColumns = function(table,query_json,access_token,callback){
+    this.init();
+    this.sign_obj.method = table + '.editTableColumns';
+    this.sign_obj.access_token = access_token;
+    for (var key in query_json) {
+        this.sign_obj[key] = query_json[key];
+    }
+    var params = raw2(this.sign_obj);
+    var path = this.path + params;
+    _get(path, callback)
+}
+
+
 localApi.prototype._login = function (account, password, callback) {
     this.init();
     this.sign_obj.method = 'user.login';
@@ -363,11 +470,11 @@ localApi.prototype._fsCombind = function (handle_json, access_token, callback) {
     });
 }
 
-localApi.prototype._sysCopy = function (id, access_token, callback) {
+localApi.prototype._sysCopy = function (name, access_token, callback) {
     this.init();
     this.sign_obj.method = 'sysCopy.sys';
     this.sign_obj.access_token = access_token;
-    this.sign_obj.id = id;
+    this.sign_obj.name = name;
     var params = raw2(this.sign_obj);
     var path = this.path + params;
     _get(path, function (obj) {
@@ -388,6 +495,7 @@ localApi.prototype._fsDelete = function (handle_json, access_token, callback) {
         callback(obj);
     });
 }
+
 
 
 var local_api = new localApi();

@@ -3,17 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>docCloud文档管理云平台</title>
+    <title>宝文综合电子档案管理系统</title>
 
     <!-- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
-    
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="css/bootstrap.3.3.min.css" rel="stylesheet">
     <link href="css/font-awesome.4.7.0.min.css" rel="stylesheet">
-    
+
     <!-- <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/datatable.css" rel="stylesheet"> -->
-    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+
     <link href="css/font-awesome.min.css" rel="stylesheet">
 
     <link href="js/magnify/dist/jquery.magnify.css" rel="stylesheet">
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/page.css">
     <link href="js/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
-
+    <link href="css/datatable.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="css/comfirm.css"> -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -54,7 +54,8 @@
         #divDocumentAssign:focus,
         #divDocAudit:focus,
         #divDocLock:focus,
-        #divDocSort:focus {
+        #divDocSort:focus,
+        #divTableUser:focus {
             outline: none
         }
 
@@ -63,8 +64,11 @@
         #lockDoc,
         #combind,
         #export,
+        #import,
         #sort,
-        #exportProp {
+        #exportProp,
+        #specialExport,
+        #tableShow {
             font-size: 12px;
             padding: 3px 6px;
             background-color: #0070c0;
@@ -95,19 +99,163 @@
         }
 
         #frmPassword .form-control,
-        #frmCombind .form-control{
+        #frmCombind .form-control {
             width: 60%;
             display: inline-block;
             box-sizing: border-box;
         }
+
         .icon-unlock {
             margin-left: 5px;
             color: green;
         }
+
         .icon-lock {
             margin-left: 5px;
             color: red;
         }
+
+        .pagination ul {
+            display: inline-block;
+            *display: inline;
+            margin-bottom: 0;
+            margin-left: 0;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            *zoom: 1;
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .pagination ul>li {
+            display: inline;
+        }
+
+        .pagination ul>li:first-child>a,
+        .pagination ul>li:first-child>span {
+            border-left-width: 1px;
+            -webkit-border-bottom-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            -webkit-border-top-left-radius: 4px;
+            border-top-left-radius: 4px;
+            -moz-border-radius-bottomleft: 4px;
+            -moz-border-radius-topleft: 4px;
+        }
+
+        .pagination ul>.active>a,
+        .pagination ul>.active>span {
+            color: #999;
+            cursor: default;
+        }
+
+        .pagination ul>li:last-child>a,
+        .pagination ul>li:last-child>span {
+            -webkit-border-top-right-radius: 4px;
+            border-top-right-radius: 4px;
+            -webkit-border-bottom-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            -moz-border-radius-topright: 4px;
+            -moz-border-radius-bottomright: 4px;
+        }
+
+        .pagination ul>.disabled>span,
+        .pagination ul>.disabled>a,
+        .pagination ul>.disabled>a:hover,
+        .pagination ul>.disabled>a:focus {
+            color: #999;
+            cursor: default;
+            background-color: transparent;
+        }
+
+        .pagination ul>li>a,
+        .pagination ul>li>span {
+            float: left;
+            padding: 4px 12px;
+            line-height: 20px;
+            text-decoration: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-left-width: 0;
+        }
+
+        .file-list {
+            padding: 10px 10px
+        }
+
+        .file-list .row {
+            margin-right: 0px;
+            margin-top: 10px
+        }
+
+        .file-list .table {
+            margin-bottom: 0px
+        }
+
+        .file-list .table-bordered>thead>tr>td,
+        .file-list .table-bordered>thead>tr>th {
+            border-bottom-width: 0px;
+        }
+
+        .file-list .dataTables_scroll .dataTables_scrollHead {
+            height: unset;
+        }
+
+        #frmTableUser span {
+            display: inline-block;
+            position: relative;
+            margin-right: 5px;
+            line-height: 20px;
+        }
+
+        .tkey,
+        .tlkey {
+            margin: 0
+        }
+
+        #frmTableUser span .tkey {
+            position: relative;
+            top: 2.7px;
+        }
+
+        #frmSpecial .row {
+            margin-right: 0;
+            /* display: none */
+        }
+
+        #divNewPro .ulLabel {
+            display: inline-block;
+            float: left;
+            line-height: 33px;
+            margin: 0;
+            margin-right: 5px;
+            width: 60px;
+        }
+
+        #propType {
+            background: #fff;
+            border-radius: 4px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #propType ul li {
+            cursor: pointer
+        }
+
+        /* #fileAll_list .table>thead>tr>th {
+            border-bottom: 0px;
+        }
+
+        #fileAll_list .table-bordered>tbody>tr>td,
+        #fileAll_list .table-bordered>tbody>tr>th,
+        #fileAll_list .table-bordered>tfoot>tr>td,
+        #fileAll_list .table-bordered>tfoot>tr>th,
+        #fileAll_list .table-bordered>thead>tr>td,
+        #fileAll_list .table-bordered>thead>tr>th {
+            border: 0px solid #ddd;
+        } */
     </style>
 </head>
 
@@ -124,8 +272,8 @@
                 <div id="_search_bar" class="mod-search">
                     <div class="search-panel">
                         <div class="search-input">
-                            <input id="search" placeholder="搜索全部" autocomplete="off" type="text" aria-label="输入文件名并按下回车进行搜索"
-                                tabindex="0" class="mod-input">
+                            <input id="search" placeholder="搜索全部" autocomplete="off" type="text"
+                                aria-label="输入文件名并按下回车进行搜索" tabindex="0" class="mod-input">
                         </div>
                         <div class="search-placeholder">
                             <i class="icon icon-searchs"></i>
@@ -182,6 +330,16 @@
                                 <a href="/report" class="link" title="报表">
                                     <i class="icon-bar-chart"></i>报表</a>
                             </li>
+
+                            <li class="nav-list access">
+                                <a href="/access" class="link" title="查阅调阅">
+                                    <i class="icon-search"></i>查阅调阅</a>
+                            </li>
+
+                            <li class="nav-list designSet">
+                                <a href="/designSet" class="link" title="门类功能">
+                                    <i class="icon-cogs"></i>门类功能</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -221,6 +379,10 @@
                             </a>
                             <div class="create-file">
                                 <ul>
+                                    <!-- <li class="create-item" id="folder4">
+                                        <span class="txt">
+                                            <i class="icon icon-doc-s"></i>分类</span>
+                                    </li> -->
                                     <li class="create-item" id="folder1">
                                         <span class="txt">
                                             <i class="icon icon-doc-s"></i>分类</span>
@@ -267,48 +429,65 @@
                         </div>
 
                         <!-- <div class="nav-prop" style="position: relative;">
-                            <div style="float: left;margin: 6px 16px 0 10px;">
+                            <div style="float: left;margin: 6px 6px 0 10px;">
                                 <button class="btn btn-primary" id="someProo">批量设置属性</button>
                             </div>
                         </div> -->
 
                         <div class="nav-audit" style="position: relative;">
-                            <div style="float: left;margin: 6px 16px 0 10px;">
+                            <div style="float: left;margin: 6px 6px 0 10px;">
                                 <button class="btn btn-primary" id="passDoc">文档审核</button>
                             </div>
                         </div>
                         <div class="nav-audit" style="position: relative;">
-                            <div style="float: left;margin: 6px 16px 0 10px;">
+                            <div style="float: left;margin: 6px 6px 0 10px;">
                                 <button class="btn btn-primary" id="lockDoc">文档锁</button>
                             </div>
                         </div>
 
                         <!-- <div class="nav-printCode" style="position: relative;">
-                            <div style="float: left;margin: 6px 16px 0 10px;">
+                            <div style="float: left;margin: 6px 6px 0 10px;">
                                 <button class="btn btn-primary" id="printCode">打印二维码</button>
                             </div>
                         </div> -->
 
                         <div class="nav-combind" style="position: relative;">
-                            <div style="float: left;margin: 6px 16px 0 10px;">
+                            <div style="float: left;margin: 6px 6px 0 6px">
                                 <button class="btn btn-primary" id="combind">合并</button>
                             </div>
                         </div>
 
                         <div class="nav-sort" style="position: relative;">
-                            <div style="float: left;margin: 6px 16px 0 10px;">
+                            <div style="float: left;margin: 6px 6px 0 6px">
                                 <button class="btn btn-primary" id="sort">排序</button>
                             </div>
                         </div>
 
                         <!-- <div class="nav-exportProp" style="position: relative;">
-                                <div style="float: left;margin: 6px 16px 0 10px;">
+                                <div style="float: left;margin: 6px 6px 0 6px">
                                     <button class="btn btn-primary" id="exportProp">导入属性</button>
                                 </div>
                             </div> -->
                         <div class="nav-export" style="position: relative;">
-                            <div style="float: left;margin: 6px 16px 0 10px;">
+                            <div style="float: left;margin: 6px 6px 0 6px">
                                 <button class="btn btn-primary" id="export">导入台账</button>
+                            </div>
+                        </div>
+                        <div class="nav-import" style="position: relative;">
+                            <div style="float: left;margin: 6px 6px 0 6px">
+                                <button class="btn btn-primary" id="import">导出</button>
+                            </div>
+                        </div>
+
+                        <div class="nav-special" style="position: relative;">
+                            <div style="float: left;margin: 6px 6px 0 6px">
+                                <button class="btn btn-primary" id="specialExport">插件</button>
+                            </div>
+                        </div>
+
+                        <div class="file-table" style="position: relative;">
+                            <div style="float: left;margin: 6px 6px 0 6px">
+                                <button class="btn btn-primary" id="tableShow">表格显示</button>
                             </div>
                         </div>
 
@@ -366,7 +545,23 @@
                         </div>
                         <!-- 文件展示区 -->
                         <div class="file-list f_detail clearfix">
-
+                            <table class="table table-hover table-striped table-bordered" width="100%" cellpadding="0"
+                                cellspacing="0" border="0" id="fileAll_list">
+                                <thead>
+                                    <tr class="tops">
+                                        <!-- <th width="20px" style="text-align: center !important;"><input id="checkAll"
+                                                type="checkbox"></th>
+                                        <th style="" data-i18n="customer.name">名称</th>
+                                        <th width="90px" data-i18n="customer.cust_type">类型</th>
+                                        <th width="90px" data-i18n="customer.contact">联系人</th>
+                                        <th width="90px" data-i18n="customer.tel">电话</th>
+                                        <th width="120px" data-i18n="customer.create_date">数据</th>
+                                        <th width="90px" data-i18n="customer.op">操作</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -383,6 +578,26 @@
         </span>
     </div>
 
+    <div id="propType" style="display: none">
+        <ul>
+            <li type="1">选择分类属性</li>
+        </ul>
+    </div>
+
+
+    <div id="propTable" style="display: none;text-align: center">
+        <select id="selTable" class="form-control" style="height: 34px;display:inline-block; width: 240px;box-sizing: border-box;">
+            <option>工矿企业档案</option>
+            <option>文书档案</option>
+            <option>业务档案</option>
+            <option>执法档案</option>
+            <option>综合档案</option>
+            <option>培训宣传档案</option>
+        </select>
+    </div>
+
+
+    <!-- 任务进度条 -->
     <div class="mod-tasks" style="visibility: visible;display: none">
         <div class="operation">
             <button aria-hidden="true" class="btn btn-icon" id="showList">
@@ -489,12 +704,15 @@
             </div>
         </div>
     </div>
+
     <div class="pdialogDiv hide">
-        <% include dialog/frmDocPro.html %>
+        <!-- include dialog/frmDocPro.html -->
         <% include dialog/frmDocAssign.html %>
         <% include dialog/frmDocAudit.html %>
         <% include dialog/frmPassword.html %>
         <% include dialog/frmcombind.html %>
+        <% include dialog/frmTable.html %>
+        <% include dialog/frmNewProp.html %>
     </div>
 
     <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
@@ -510,6 +728,13 @@
     <script src="js/magnify/dist/jquery.magnify.js"></script>
     <script src="js/jquery/jquery.cookie.js"></script>
     <script src="js/js-spark-md5/spark-md5.min.js"></script>
+
+    <!-- <script src="js/dataTable/colResizable-1.6.js"></script> -->
+
+    <script src="js/jquery.dataTables.js"></script>
+    <script src="js/bootstrap.dataTable.js"></script>
+    <script src="js/FixedColumns-3.2.5/js/FixedColumns.js"></script>
+    <script src="js/chineseFirstE.js"></script>
     <script src="js/wistorm/localApi.js"></script>
     <script src="js/system.js"></script>
     <script src="js/wistorm/md5.js"></script>
@@ -521,9 +746,14 @@
     <script src="js/csv2arr/jschardet.js"></script>
     <script src="js/csv2arr/csv2arr.js"></script>
     <script src="js/csv2arr/xlsx.full.min.js"></script>
+
+    <!-- <script src="js/vendor/xlsx.full.min.js"></script>
+    <script src="js/csv2arr/xlsx.full.min.js"></script> -->
+
     <script src="js/account.js"></script>
     <script src="js/index.js"></script>
     <script src="js/upload.js"></script>
+
     <!-- <script src="js/pdf/generic/build/pdf.js"></script> -->
 </body>
 

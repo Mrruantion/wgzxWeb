@@ -5,6 +5,7 @@ function fileConstruct(fileData) {
     var fileTypeClass = 'folder', fileClass, isImg = false;
     var fileType = ['jpg', 'jpeg', 'gif', 'png', 'bmp'];
     var _path = '';
+    var autoId = fileData.autoId;
     if (fileData.type == 3) {
         fileTypeClass = fileData.filetype;
         // var _ftype = fileData.name.slice(fileData.name.lastIndexOf('.'),fileData.name.length)
@@ -49,6 +50,7 @@ function fileConstruct(fileData) {
         }
                                         
                     </div>
+                    ${autoId?`<div style="float: left;padding: 5px;"><span style="padding-top: 17px;display: block;">${autoId}</span></div>`:''}
                     <div class="file-title-box">
                     ${
         isImg ?
@@ -89,7 +91,7 @@ function fileConstruct(fileData) {
 function fileConstructs(fileData) {
     var fileTypeClass = 'folder', fileClass, isImg = false;
     var fileType = ['jpg', 'jpeg', 'gif', 'png', 'bmp'];
-
+    var autoId = fileData.autoId
     if (fileData.type == 3) {
         fileTypeClass = fileData.filetype;
         isImg = fileType.indexOf(fileData.filetype) > -1 ? true : false
@@ -121,6 +123,7 @@ function fileConstructs(fileData) {
         }
                     
                 </div>
+                ${autoId?`<div style="float: left;padding: 5px;"><span style="padding-top: 17px;display: block;">${autoId}</span></div>`:''}
                 <div class="file-title-box">
                         ${
         isImg ?
@@ -134,7 +137,7 @@ function fileConstructs(fileData) {
                 <ul class="ff_detail">
                     <li>${fileData._postion || '-'}</li>
                     <li>${new Date(fileData.createdAt).format('yyyy-MM-dd hh:mm:ss') || new Date().format('yyyy-MM-dd hh:mm:ss')}
-                        ${roleArr.indexOf('调用密集柜') > -1 ? `<button class="btn btn-primary" style="font-size: 12px;margin-left: 5px;padding: 5px;" data-docPrpId=${fileData.pfid}>打开密集柜</button>` : ''}
+                        ${roleArr.indexOf('调用密集柜') > -1 ? `<button class="btn btn-primary" style="font-size: 12px;margin-left: 5px;padding: 5px;" data-docPrpId=${fileData.id}>打开密集柜</button>` : ''}
                     </li>
                 </ul>
                 <div class="file-title-addr ellipsis" title="${fileData.tree_addr.str1 || ''}">
@@ -277,8 +280,9 @@ function createPathNavHtml(fileData, fileId) {
         // 如果是当前文件路径的最后一个就返回，不拼接
 
         if (item.type == 2) {
-            names = item.name.split('-');
-            name = names[names.length - 1]
+            // names = item.name.split('-');
+            // name = names[names.length - 1]
+            name = item.name
         } else {
             name = item.name
         }
@@ -292,8 +296,9 @@ function createPathNavHtml(fileData, fileId) {
     // 渲染当前文件路径的最后一个
     if (parents[parents.length - 1]) {
         if (parents[parents.length - 1].type == 2) {
-            names = parents[parents.length - 1].name.split('-');
-            name = names[names.length - 1]
+            // names = parents[parents.length - 1].name.split('-');
+            // name = names[names.length - 1]
+            name = parents[parents.length - 1].name
         } else {
             name = parents[parents.length - 1].name
         }

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>docCloud文档管理云平台</title>
+    <title>宝文综合电子档案管理系统</title>
     <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <!-- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -48,14 +48,18 @@
             min-width: 1120px;
             display: flex
         }
+
         #searchType:focus,
-        #userTypeSel:focus{
+        #userTypeSel:focus {
             outline: none
         }
-        #searchType,#userTypeSel{
+
+        #searchType,
+        #userTypeSel {
             box-sizing: border-box;
             font-size: 12px;
         }
+
         #userKey {
             font-size: 12px;
         }
@@ -76,8 +80,8 @@
                 <div id="_search_bar" class="mod-search">
                     <div class="search-panel">
                         <div class="search-input">
-                            <input id="search" placeholder="搜索全部" autocomplete="off" type="text" aria-label="输入文件名并按下回车进行搜索"
-                                tabindex="0" class="mod-input">
+                            <input id="search" placeholder="搜索全部" autocomplete="off" type="text"
+                                aria-label="输入文件名并按下回车进行搜索" tabindex="0" class="mod-input">
                         </div>
                         <div class="search-placeholder">
                             <i class="icon icon-searchs"></i>
@@ -103,6 +107,15 @@
                                 <a href="/report" class="link" title="报表">
                                     <i class="icon-bar-chart"></i>报表</a>
                             </li>
+                            <li class="nav-list access">
+                                <a href="/access" class="link" title="查阅调阅">
+                                    <i class="icon-search"></i>查阅调阅</a>
+                            </li>
+
+                            <li class="nav-list designSet">
+                                <a href="/designSet" class="link" title="门类功能">
+                                    <i class="icon-cogs"></i>门类功能</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -123,13 +136,15 @@
                         <button id="addUser" class="btn btn-primary" style="font-size: 12px">新增</button>
                     </div> -->
                     <div style="display: inline-block" id="datetime">
-                        <div class="input-append date startTime" style="width: 160px" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss">
+                        <div class="input-append date startTime" style="width: 160px" data-date=""
+                            data-date-format="yyyy-mm-dd hh:ii:ss">
                             <input class="form-control" size="16" type="text" value="" style="width: 120px">
                             <span class="add-on">
                                 <i class="icon-th"></i>
                             </span>
                         </div>
-                        <div class="input-append date endTime" style="width: 160px" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss">
+                        <div class="input-append date endTime" style="width: 160px" data-date=""
+                            data-date-format="yyyy-mm-dd hh:ii:ss">
                             <input class="form-control" size="16" type="text" value="" style="width: 120px">
                             <span class="add-on">
                                 <i class="icon-th"></i>
@@ -137,12 +152,13 @@
                         </div>
                         <button class="btn btn-primary" style="position: relative;top: -5px" id="dateQuery">查询</button>
                     </div>
-                    <div class="input-append pull-right" style="height: 32px; line-height: 32px; font-size: 0px; padding-bottom: 0px;letter-spacing: -3px;">
-                        <button id="addUser" class="btn btn-primary" style="font-size: 12px">备份</button>
+                    <div class="input-append pull-right"
+                        style="height: 32px; line-height: 32px; font-size: 0px; padding-bottom: 0px;letter-spacing: -3px;">
+                        <button id="addSys" class="btn btn-primary" style="font-size: 12px">备份</button>
                     </div>
                     <div id="customer_panel">
                         <table class="table table-hover table-striped table-bordered" width="100%" cellpadding="0"
-                            cellspacing="0" border="0" id="user_list">
+                            cellspacing="0" border="0" id="sys_list">
                             <thead>
                                 <tr class="tops">
                                     <th width="120px" style="">
@@ -198,7 +214,8 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script type="text/javascript" src="js/dateTimePicker/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 
-    <script type="text/javascript" src="js/dateTimePicker/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/dateTimePicker/locales/bootstrap-datetimepicker.zh-CN.js"
+        charset="UTF-8"></script>
     <script src="js/magnify/dist/jquery.magnify.js"></script>
     <script src="js/jquery/jquery.cookie.js"></script>
     <script src="js/js-spark-md5/spark-md5.min.js"></script>

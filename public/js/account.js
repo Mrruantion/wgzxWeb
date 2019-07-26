@@ -93,6 +93,13 @@ if (roleArr.indexOf('报表') == -1) {
     $('.report ').remove();
 }
 
+if (roleArr.indexOf('查阅调阅') == -1) {
+    $('.access').remove();
+}
+if (roleArr.indexOf('门类功能') == -1) {
+    $('.designSet').remove();
+}
+
 if (roleArr.indexOf('系统备份') == -1) {
     $('#sysCopy').remove();
 }
@@ -188,6 +195,7 @@ function repasswordSubmit() {
         }
     })
 
+
 }
 
 
@@ -217,6 +225,36 @@ tools.addEvent(tools.$('#search')[0], 'blur', function () {
 
 })
 
+function _confirm(title, content, cb) {
+    if ($('#comfirmDialog').length) {
+        $('#comfirmDialog .content').text(content)
+        $("#comfirmDialog").dialog({
+            resizable: false,
+            height: 150,
+            modal: true,
+            title: title,
+            buttons: {
+                "确定": function () {
+                    $(this).dialog("close");
+                    cb(true)
+                },
+                '取消': function () {
+                    $(this).dialog("close");
+                    cb(false)
+                }
+            }
+        })
+    } else {
+        var div = document.createElement('div')
+        div.id = 'comfirmDialog'
+        var str = `<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>${content}</p>`
+        div.innerHTML = str
+        $('body').append(div)
+        _confirm(title, content, cb)
+
+    }
+}
+window._confirm = _confirm
 window.createOperate = createOperate
 window.repasswordSubmit = repasswordSubmit
 window.userNameChange = userNameChange

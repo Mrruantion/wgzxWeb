@@ -187,9 +187,10 @@ function _combind(req, res) {
     var output = req.___dirname + '/public/upload/' + query.output;
     cmdStr += 'cat output ' + output
 
-
+    console.log(cmdStr)
     exec(cmdStr, function (err, stdout, srderr) {
         if (err) {
+            console.log(err)
             res.send({ srderr, message: 'err', status: -1 })
         } else {
             combindDelete(req, deletePath, function () {

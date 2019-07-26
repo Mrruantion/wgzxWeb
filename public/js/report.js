@@ -171,13 +171,16 @@ function sysLog() {
 
 //案卷汇总表
 function summarySheetTable() {
+    if(!selectPropName){
+        return
+    }
     var query_json = {
         'document.tree_path': '^' + assignTreePath,
         'document.type': 2
     }
     var exportTablehead = { '_id': '序号', 'name': '案卷名', 'did': '档号', 'saveExpireIn': '保存年限', '具体地址': '具体地址', 'position': "位置", '社区单位编号': '社区单位编号', 'num': '件数', 'page': '页数' }
     exportTablehead = JSON.stringify(exportTablehead);
-    local_api._listUnionUrl({ 'table1': 'document', 'table2': 'docProp' }, query_json, 'docProp.*,document.did,document.id,document.name', 'document.did|document.id', 'document.id=docProp.fid', exportTablehead, 1, -1, $.cookie('appkey'), function (res) {
+    local_api._listUnionUrl({ 'table1': 'document', 'table2': selectPropName }, query_json, '*,document.did,document.id,document.name', 'document.did|document.id', 'document.id='+selectPropName+'.fid', exportTablehead, 1, -1, $.cookie('appkey'), function (res) {
         if (res.data) {
             if (res.data.length) {
                 $('#export').parent().show();
@@ -265,6 +268,7 @@ function showTree(data) {
             assignDid = treeNode.id;
             assignTreePath = treeNode.treePath;
             assignName = treeNode._name;
+            selectPropName = treeNode.propName
         }
     };
     var settingAssign = {
@@ -282,6 +286,7 @@ function showTree(data) {
             treePath: data[i]['tree_path'],
             pId: data[i]['pid'],
             name: data[i]['name'],
+            propName:data[i]['propName'],
             u_path: data[i]['u_path'],
             icon: icons[data[i]['type']]
         });

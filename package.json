@@ -5,6 +5,10 @@
   "scripts": {
     "start": "node ./bin/www"
   },
+  "bin": "./bin/www",
+  "pkg": {
+    "assets": ["views/**/*", "public/**/*", "locales/**/*"]
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
     "compressing": "^1.3.0",

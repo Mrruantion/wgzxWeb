@@ -15,6 +15,8 @@
         <li style="margin-top: 10px">
             <label class="ellipsis">档号</label>
             <input id="did" value="" class="form-control" />
+            <span class="glyphicon glyphicon-plus" id="addCustom" title="添加自定义属性" style="font-size: 17px;top: 4px;left: 5px;cursor: pointer;"
+            aria-hidden="true"></span>
         </li>
         <!-- <li style="margin-top: 10px">
             <label class="ellipsis">件数</label>
@@ -34,7 +36,14 @@
                     <option></option>
                 </select>
             </div>
-            <!-- <div class="quNumber">
+            <div class="quNumber">
+                <span class="quNumberName">左/右侧</span>
+                <select class="form-control" id="ce" style="width: 85%;padding:3px;">
+                    <option value="1">左</option>
+                    <option value="2">右</option>
+                </select>
+            </div>
+            <div class="quNumber">
                 <span class="quNumberName">节号</span>
                 <select class="form-control" id="jnum" style="width: 85%;padding:3px;font-size: 14px;">
                     <option></option>
@@ -49,14 +58,8 @@
                     <option value="1">1</option>
                     <option value="1">1</option>
                 </select>
-            </div> -->
-            <div class="quNumber">
-                <span class="quNumberName">左/右侧</span>
-                <select class="form-control" id="ce" style="width: 85%;padding:3px;">
-                    <option value="l">左</option>
-                    <option value="r">右</option>
-                </select>
             </div>
+            
             <!-- <div class="quNumber">
                 <span class="quNumberName">左/右侧</span>
                 <select class="form-control" id="ce" style="width: 85%;padding:3px;">
@@ -65,7 +68,7 @@
                 </select>
             </div> -->
             <div class="quNumber" style="top: -2px;">
-                <span class="quNumberName">其他</span>
+                <span class="quNumberName">本号</span>
                 <input class="form-control" id="onum" style="width: 85%;padding:3px;">
             </div>
         </li>
@@ -101,6 +104,16 @@
         <li style="margin-top: 10px">
             <label class="ellipsis">名称</label>
             <input id="newPropname" value="" class="form-control">
+        </li>
+    </ul>
+</div>
+
+
+<div id="newCustomTable" style="display: none">
+    <ul>
+        <li style="margin-top: 10px">
+            <label class="ellipsis">分类名称</label>
+            <input id="newTableName" value="" class="form-control">
         </li>
     </ul>
 </div>

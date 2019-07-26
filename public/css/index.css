@@ -1136,7 +1136,7 @@ icon-pic 图片 */
 .file-show .g-empty {
     position: relative;
     display: none;  /* 文件夹为空时显示，有文件时不显示 */
-    height: 100%;
+    height: 80%;
 }
 
 .g-empty .empty-box {
@@ -1772,7 +1772,8 @@ content-menu li {
 .quNumber {
     position: relative;
     display: inline-block;
-    width: 12%;
+    /* width: 12%; */
+    width: 14%;
     padding-top: 20px;
 }
 .quNumberName {
@@ -1843,23 +1844,34 @@ content-menu li {
     box-shadow: 2px 2px 3px #aaaaaa;
 }
 
-.lay-aside .nav-list .link i.icon-bar-chart {
+.lay-aside .nav-list .link i.icon-bar-chart,
+.lay-aside .nav-list .link i.icon-search,
+.lay-aside .nav-list .link i.icon-cogs
+ {
     font-size: 15px;
     top: 9px;
     color: #7c878e;
 }
 
 .lay-aside .nav-list.nav-current .link  .icon-bar-chart,
-.lay-aside .nav-list .link:hover>i.icon-bar-chart
+.lay-aside .nav-list .link:hover>i.icon-bar-chart,
+.lay-aside .nav-list.nav-current .link  .icon-search,
+.lay-aside .nav-list .link:hover>i.icon-search,
+.lay-aside .nav-list.nav-current .link  .icon-cogs,
+.lay-aside .nav-list .link:hover>i.icon-cogs
  {
     color: #fff;
 }
 
-.lay-aside .nav-list.nav-current .link  .icon-bar-chart {
+.lay-aside .nav-list.nav-current .link  .icon-bar-chart,
+.lay-aside .nav-list.nav-current .link  .icon-search,
+.lay-aside .nav-list.nav-current .link  .icon-cogs {
     color: #fff;
 }
 
-.lay-aside .nav-list.report .link {
+.lay-aside .nav-list.report .link,
+.lay-aside .nav-list.access .link,
+.lay-aside .nav-list.designSet .link  {
     text-indent: unset;
     padding-left: 50px;
 }

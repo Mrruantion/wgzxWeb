@@ -56,6 +56,27 @@ router.get('/report', function (req, res, next) {
     res.redirect('/login')
   }
 })
+
+
+
+router.get('/access', function (req, res, next) {
+  if (req.session.isLogin && checkIsRole('查阅调阅', req.session.user)) {
+    res.render('access', { user: req.session.user })
+  } else {
+    res.redirect('/login')
+  }
+})
+
+
+router.get('/designSet', function (req, res, next) {
+  if (req.session.isLogin && checkIsRole('门类功能', req.session.user)) {
+    res.render('designSet', { user: req.session.user })
+  } else {
+    res.redirect('/login')
+  }
+})
+
+
 router.get('/sysCopy', function (req, res, next) {
   if (req.session.isLogin && checkIsRole('系统备份', req.session.user)) {
     res.render('sysCopy', { user: req.session.user })
@@ -70,14 +91,26 @@ router.get('/docshow', function (req, res, next) {
     var db = req.con;
     db.query(`select * from document where id = ${req.query.fileId || ''}`, function (err, row) {
       if (err) {
-        res.send({ path: '/upload/404.pdf' })
+        // res.send({ path: '/upload/404.pdf' })
+        res.send({ path: '/upload/404.pdf', path2: new Buffer([1]) })
       } else {
         if (row[0]) {
           var tree_path = row[0].tree_path.split(',');
           var json = { id: tree_path.join('|') };
           db.query(`select * from document ${rest.wUrl(json)}`, function (err, rows) {
             var path = '/upload/' + doc_path(rows, row[0].tree_path);
-            res.send({ path: path })
+            var path2;
+            try {
+              // path2 = fs.readFileSync(req.___dirname + '/public' + path)
+            } catch (e) {
+              path2 = new Buffer([1])
+            }
+
+            // console.log(path2)
+            // console.log(req.___dirname + path)
+
+
+            res.send({ path: path, path2: path2 })
             // fs.readFile(req.___dirname + '/public/upload/' + path, { encoding: 'binary' }, function (err, data) {
             //   console.log(err, data)
             //   if (err) {
@@ -122,14 +155,14 @@ function doc_path(docDatas, doc_paths) {
         if (i == tArr.length - 1) {
           // uploadPath += e.name
           if (e.type == 2) {
-            uploadPath += (e.did||'') + e.name;
+            uploadPath += (e.did || '') + e.name;
           } else {
             uploadPath += e.name;
           }
         } else {
           // uploadPath += e.name + '/'
           if (e.type == 2) {
-            uploadPath += (e.did||'') + e.name + '/';
+            uploadPath += (e.did || '') + e.name + '/';
           } else {
             uploadPath += e.name + '/';
           }
@@ -292,19 +325,39 @@ router.post('/upload', function (req, res, next) {
 
 })
 
-router.use('/rest', rest.rest)
+router.get('/rest', rest.rest)
+router.post('/rest', rest.rest)
 //打开密集柜
 router.get('/openApi', function (req, res, next) {
 
   //var op = {Area:1,MapCol:3,Knot:1}
-  var op = { Area: 1,Knot:1 }
-  op['MapCol'] = parseInt(req.query.lie)
+  // var op = { zone: 1,col:1 }
+  var query = req.query
+  var col = query.col;
+  var side = query.side;
+  var section = query.section;
+  var layer = query.layer;
+  var docno = "";
+  var docname = query.name;
+
+  var op = {
+    "zone": 1,
+    "col": col,
+    "side": side,
+    "section": section,
+    "layer": layer,
+    "docno": docno,
+    "docname": docname,
+    "doccreated": "",
+    "docstatus": "onshelf"
+  }
+  // op['MapCol'] = parseInt(req.query.lie)
   var ops = JSON.stringify(op)
   var option = {
     method: 'POST',
     hostname: '127.0.0.1',
-    port: 9999,
-    path: '/IdfWCFServer/RestFullWcf/OrderOpen',
+    port: 20206,
+    path: '/denseshelf/unfold',
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
@@ -326,6 +379,269 @@ router.get('/openApi', function (req, res, next) {
 
 })
 
+router.get('/downloadfile', function (req, res) {
+  let path = req.query.path;
+  let name = req.query.name
+  let load = fs.createReadStream(path); //创建输入流入口
+  res.writeHead(200, {
+    'Content-Type': 'application/force-download',
+    'Content-Disposition': 'attachment; filename=' + encodeURI(name)
+  });
+  load.pipe(res);// 通过管道方式写入
+})
+
+
+
+router.get('/searchResults', function (req, res) {
+  var db = req.con;
+  var globalQuery = req.query;
+  if (!globalQuery.key && !globalQuery.did) {
+    res.send({ status: -1 })
+  }
+  var filterArray = ['docprop', 'document', 'playapp', 'syscopy', 'syslog', 'user', 'access']
+  var fixPropArr = ['id', 'fid', 'sid', 'u_path', 'did', 'name', 'saveExpireIn', 'createdAt', 'num', 'page', "qnum", "lnum", "jnum", "cnum", "ce", "bnum", "pname", "lname", "onum", "tree_path"];
+  var allTableArray = []
+  try {
+    getTable(req, function (err, row) {
+      if (err) {
+        res.send({ status: -1 })
+      } else {
+        row.forEach(e => {
+          if (filterArray.indexOf(e['table_name']) == -1) {
+            allTableArray.push(e['table_name'])
+          }
+        })
+        // for(var i = 0;row.length;i++){
+        //   if (filterArray.indexOf(row[i]['table_name']) == -1) {
+        //     allTableArray.push(row[i]['table_name'])
+        //   }
+        // }
+      }
+      var allData = []
+      var allCouId = []
+      var globalIndex = 0
+      
+      var start = function () {
+        var ename = allTableArray[globalIndex]
+        if (ename) {
+          getTableColumn(req, ename, function (err1, row1) {
+            if (err1) {
+              res.send({ status: -1 })
+            }
+            var filterColumns = []
+            for (var i = 0; i < row1.length; i++) {
+              if (fixPropArr.indexOf(row1[i].Field) == -1) {
+                filterColumns.push(row1[i].Field)
+              }
+            }
+
+            if (globalQuery.key) {
+              var queryBody = {sid:globalQuery.key}
+              for (var i = 0; i < filterColumns.length; i++) {
+                queryBody[filterColumns[i]] = globalQuery.key
+              }
+              console.log(queryBody)
+              var query_json = {
+                fields: 'fid',
+                sorts: '',
+                limit: '200',
+                page_no: parseInt(globalQuery.pageNum || 0) || 1,
+              }
+              // if(ename == '登记备案合同_私人'){
+              //   debugger
+              // }
+
+              rest._vagueList({ query: query_json, con: req.con, body: queryBody }, res, ename, function (vdata) {
+                console.log(vdata.data)
+                allCouId = []
+                // allCouId.push(vdata.data)
+                vdata.data.forEach(e => {
+                  console.log(e.fid)
+                  allCouId.push(e.fid)
+                })
+                var documentBody = {
+                  name: globalQuery.key,
+                  did: globalQuery.key,
+                  keyword: globalQuery.key,
+                }
+                query_json['fields'] = 'id,type,propName,pid'
+                query_json['limit'] = -1
+                // if(ename == '登记备案合同_私人'){
+                //   debugger
+                // }
+                rest._vagueList({ query: query_json, con: req.con, body: documentBody }, res, 'document', function (vddata) {
+                  vddata.data.forEach(e => {
+                    console.log(vddata.data)
+                    if(e.propName == ename && allCouId.length <= 200) {
+                      if(e.type == 3){
+                        allCouId.push(e.pid)
+                      }else {
+                        allCouId.push(e.id)
+                      }
+                    }
+                  })
+                  var query_json = {
+                    fields: '*',
+                    sorts: 'did',
+                    limit: '12',
+                    page_no: parseInt(globalQuery.pageNum) || 1,
+                    'document.id': allCouId.join('|'),
+                    joinCdn: ename + '.fid = document.id'
+                  }
+                  if (globalQuery.did) {
+                    query_json['document.did'] = '^' + globalQuery.did
+                  }
+                  if (filterColumns.indexOf('在库状态') > -1) {
+                    query_json['sorts'] = '-' + ename + '.在库状态|did'
+                  }
+                  console.log(query_json)
+                 
+                  rest.tableUnion({ query: query_json, con: req.con }, res, 'document', ename, function (result) {
+                    allData = allData.concat(result.data)
+                    console.log(ename)
+                    globalIndex++
+                    start()
+                    // if (allTableArray.length == index + 1) {
+                    //   var beforData = beforeRusult(allData)
+                    //   res.send({ status: 0, data: beforData, total: beforData.length })
+                    // }
+                  })
+  
+                })
+
+                
+              })
+
+
+
+            } else if (globalQuery.did) {
+
+              var query_json = {
+                fields: '*',
+                sorts: 'did',
+                limit: '50',
+                page_no: parseInt(globalQuery.pageNum) || 1,
+                did: '^' + globalQuery.did,
+                type:2,
+
+                joinCdn: ename + '.fid = document.id'
+              }
+              if (filterColumns.indexOf('在库状态') > -1) {
+                query_json['sorts'] = '-' + ename + '.在库状态|did'
+              }
+              console.log(query_json)
+              rest.tableUnion({ query: query_json, con: req.con }, res, 'document', ename, function (result) {
+                // allData.push(result.data)
+                allData = allData.concat(result.data)
+                globalIndex++
+                start()
+                // if (allTableArray.length == index + 1) {
+                //   var beforData = beforeRusult(allData)
+                //   res.send({ status: 0, data: beforData, total: beforData.length })
+                //   // res.send({ allData })
+                // }
+              })
+
+            }
+
+
+          })
+        } else {
+          console.log(allData)
+          var beforData = beforeRusult(allData)
+          res.send({ status: 0, data: beforData, total: beforData.length })
+        }
+      }
+      start()
+      // allTableArray.forEach((ename, index) => {
+
+      // })
+
+    })
+  } catch (error) {
+    res.send({ status: -1 })
+  }
+
+
+
+})
+
+function getTable(req, cb) {
+  var db = req.con;
+  var table = 'docdb'
+  let queryLink = `select table_name from information_schema.tables where table_schema='${table}'`
+  db.query(queryLink, function (err, row) {
+    cb(err, row)
+    // res.send({err:err,row:row})
+  })
+}
+
+function getTableColumn(req, name, cb) {
+  var db = req.con;
+  var table = name
+  var sql = `SHOW FULL COLUMNS FROM ${table}`;
+  db.query(sql, function (err, row) {
+    cb(err, row)
+  })
+}
+
+
+function beforeRusult(data) { //处理数据
+  var _data = [];
+  var objisExist = {}
+  for (var i = 0; i < data.length; i++) {
+    var obj = { name: '', remark: '', status: '', othername: '' };
+    for (var o in data[i]) {
+
+      switch (o) {
+        case 'name':
+          var name = data[i][o]
+          obj['name'] = name;
+          break;
+        case '档案名称':
+            obj['othername'] = data[i][o]
+            break;
+        case '在库状态':
+          obj['status'] = data[i][o] || '';
+          break;
+        case '备注':
+          obj['remark'] = data[i][o] || '';
+          break;
+        case 'did':
+          obj['did'] = data[i][o] || '';
+          break;
+        case 'qnum':
+          obj['qnum'] = data[i][o] || '';
+          break;
+        
+        case 'lnum':
+          obj['lnum'] = data[i][o] || '';
+          break;
+        case 'jnum':
+          obj['jnum'] = data[i][o] || '';
+          break;
+        case 'cnum':
+          obj['cnum'] = data[i][o] ||'';
+          break;
+        case 'ce':
+          obj['ce'] = data[i][o] || 2;
+          break;
+        case 'onum':
+          obj['onum'] = data[i][o] || 0;
+          break;
+        default:
+        // obj[o] = data[i][o];
+        // break;
+      }
+    }
+    if(!objisExist[data[i].id]){
+      objisExist[data[i].id] = 1
+      _data.push(obj)
+    }
+    
+  }
+  return _data
+}
 
 
 module.exports = router;

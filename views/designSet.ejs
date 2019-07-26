@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>宝文综合电子档案管理系统</title>
+
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="css/bootstrap.3.3.min.css" rel="stylesheet">
+    <link href="css/font-awesome.4.7.0.min.css" rel="stylesheet">
+
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/datatable.css" rel="stylesheet"> -->
+
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="js/magnify/dist/jquery.magnify.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/page.css">
+    <link href="js/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    <link href="css/datatable.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/comfirm.css"> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .file-show {
+            padding-left: 162px;
+        }
+
+        #tree-menu {
+            float: left;
+            width: 160px;
+            height: 100%;
+            /* padding: 0 12px; */
+            border-right: 1px solid #e6e9f0;
+            overflow: auto;
+            padding-top: 5px;
+            background: #fff;
+            padding: 0
+        }
+
+        .frmDocumentAssign {
+            overflow-x: auto;
+            overflow-y: auto;
+            width: 280px;
+            height: 150px;
+            border: solid 1px #ccc;
+            margin-left: 50px;
+        }
+
+        #divDocumentAssign:focus,
+        #divDocAudit:focus,
+        #divDocLock:focus,
+        #divDocSort:focus,
+        #divTableUser:focus {
+            outline: none
+        }
+
+        #passDoc,
+        #printCode,
+        #lockDoc,
+        #combind,
+        #export,
+        #import,
+        #sort,
+        #exportProp,
+        #specialExport,
+        #tableShow,
+        #addProp,
+        #addPropList,
+        #addTable {
+            font-size: 12px;
+            padding: 6px;
+            background-color: #0070c0;
+            border-color: #0070c0;
+            /* height: 26px; */
+        }
+
+        #qucodePrint,
+        .qrcodePrint {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .qrcodePrint li {
+            float: left;
+            width: 20%;
+            margin-bottom: 10px;
+        }
+
+        .qrcodePrint li img {
+            display: block;
+        }
+
+        .qrcodePrint span {
+            word-wrap: break-word;
+        }
+
+        #frmPassword .form-control,
+        #frmCombind .form-control {
+            width: 60%;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        .icon-unlock {
+            margin-left: 5px;
+            color: green;
+        }
+
+        .icon-lock {
+            margin-left: 5px;
+            color: red;
+        }
+
+        .pagination ul {
+            display: inline-block;
+            *display: inline;
+            margin-bottom: 0;
+            margin-left: 0;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            *zoom: 1;
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .pagination ul>li {
+            display: inline;
+        }
+
+        .pagination ul>li:first-child>a,
+        .pagination ul>li:first-child>span {
+            border-left-width: 1px;
+            -webkit-border-bottom-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            -webkit-border-top-left-radius: 4px;
+            border-top-left-radius: 4px;
+            -moz-border-radius-bottomleft: 4px;
+            -moz-border-radius-topleft: 4px;
+        }
+
+        .pagination ul>.active>a,
+        .pagination ul>.active>span {
+            color: #999;
+            cursor: default;
+        }
+
+        .pagination ul>li:last-child>a,
+        .pagination ul>li:last-child>span {
+            -webkit-border-top-right-radius: 4px;
+            border-top-right-radius: 4px;
+            -webkit-border-bottom-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            -moz-border-radius-topright: 4px;
+            -moz-border-radius-bottomright: 4px;
+        }
+
+        .pagination ul>.disabled>span,
+        .pagination ul>.disabled>a,
+        .pagination ul>.disabled>a:hover,
+        .pagination ul>.disabled>a:focus {
+            color: #999;
+            cursor: default;
+            background-color: transparent;
+        }
+
+        .pagination ul>li>a,
+        .pagination ul>li>span {
+            float: left;
+            padding: 4px 12px;
+            line-height: 20px;
+            text-decoration: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-left-width: 0;
+        }
+
+        .file-list {
+            padding: 10px 10px
+        }
+
+        .file-list .row {
+            margin-right: 0px;
+            margin-top: 10px
+        }
+
+        .file-list .table {
+            margin-bottom: 0px
+        }
+
+        .file-list .table-bordered>thead>tr>td,
+        .file-list .table-bordered>thead>tr>th {
+            border-bottom-width: 0px;
+        }
+
+        .file-list .dataTables_scroll .dataTables_scrollHead {
+            height: unset;
+        }
+
+        #frmTableUser span {
+            display: inline-block;
+            position: relative;
+            margin-right: 5px;
+            line-height: 20px;
+        }
+
+        .tkey,
+        .tlkey {
+            margin: 0
+        }
+
+        #frmTableUser span .tkey {
+            position: relative;
+            top: 2.7px;
+        }
+
+        #frmSpecial .row {
+            margin-right: 0;
+            /* display: none */
+        }
+
+        #tree-menu .tree_li {
+            padding: 0 10px;
+            line-height: 30px;
+            cursor: pointer;
+        }
+
+        #tree-menu .tree_li.active {
+            background: #0070c0;
+            color: #fff
+        }
+
+        #tree-menu .tree_li:hover {
+            background: #0070c0;
+            color: #fff
+        }
+
+        #propType {
+            background: #fff;
+            border-radius: 4px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #propType ul li {
+            cursor: pointer
+        }
+
+
+
+        /* #fileAll_list .table>thead>tr>th {
+            border-bottom: 0px;
+        }
+
+        #fileAll_list .table-bordered>tbody>tr>td,
+        #fileAll_list .table-bordered>tbody>tr>th,
+        #fileAll_list .table-bordered>tfoot>tr>td,
+        #fileAll_list .table-bordered>tfoot>tr>th,
+        #fileAll_list .table-bordered>thead>tr>td,
+        #fileAll_list .table-bordered>thead>tr>th {
+            border: 0px solid #ddd;
+        } */
+    </style>
+</head>
+
+<body>
+    <!-- 微云 -->
+    <div class="weiyun">
+        <!-- 头部 -->
+        <% include html/header.html %>
+        <!-- 主要内容区 -->
+        <div class="weiyun-content">
+            <!-- 左侧菜单区 -->
+            <div class="lay-aside">
+
+                <div id="_search_bar" class="mod-search">
+                    <div class="search-panel">
+                        <div class="search-input">
+                            <input id="search" placeholder="搜索全部" autocomplete="off" type="text"
+                                aria-label="输入文件名并按下回车进行搜索" tabindex="0" class="mod-input">
+                        </div>
+                        <div class="search-placeholder">
+                            <i class="icon icon-searchs"></i>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="aside-box">
+                    <div class="aside-wrap">
+                        <ul class="nav-box">
+
+                            <li class="nav-list summary">
+                                <a href="/summary" class="link doc" title="首页">
+                                    <i></i>首页</a>
+                            </li>
+                            <li class="nav-list file ">
+                                <a href="/file" class="link all" title="目录">
+                                    <i></i>目录</a>
+                            </li>
+
+                            <li class="nav-list hightSearch">
+                                <a href="/hightSearch" class="link pic" title="检索">
+                                    <i></i>检索</a>
+                            </li>
+                            <li class="nav-list report">
+                                <a href="/report" class="link" title="报表">
+                                    <i class="icon-bar-chart"></i>报表</a>
+                            </li>
+
+                            <li class="nav-list access">
+                                <a href="/access" class="link" title="查阅调阅">
+                                    <i class="icon-search"></i>查阅调阅</a>
+                            </li>
+
+                            <li class="nav-list designSet nav-current">
+                                <a href="/designSet" class="link" title="门类功能">
+                                    <i class="icon-cogs"></i>门类功能</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 右侧内容区域 -->
+            <div class="main">
+                <!-- 工具菜单导航 -->
+                <div class="nav">
+                    <nav class="nav-collects clearfix">
+
+                        <div class="nav-prop" style="position: relative;">
+                            <div style="float: left;margin: 6px 6px 0 10px;">
+                                <button class="btn btn-primary" id="addProp">新增属性</button>
+                            </div>
+                        </div>
+                        <div class="nav-table" style="position: relative;">
+                            <div style="float: left;margin: 6px 6px 0 10px;">
+                                <button class="btn btn-primary" id="addTable">新增分类</button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <!-- 主要内容展示区 -->
+                <div class="content clearfix">
+                    <!-- 树形导航 -->
+
+                    <ul id="tree-menu" class="ztree span3">
+                        <p style="text-align: center;margin-top: 20px">
+                            <img src="/img/waiting.gif" />
+                        </p>
+
+                    </ul>
+                    <!-- 文件展示区 -->
+                    <div class="file-show">
+
+                        <!-- 空白文件展示区 -->
+                        <div class="g-empty sort-folder-empty">
+                            <div class="empty-box">
+                                <div class="ico"></div>
+                                <p class="title">暂无文件</p>
+                                <p class="content">请点击左上角的“上传”按钮添加文件</p>
+                            </div>
+                        </div>
+                        <!-- 文件展示区 -->
+                        <div class="file-list f_detail clearfix">
+                            <table class="table table-hover table-striped table-bordered" width="100%" cellpadding="0"
+                                cellspacing="0" border="0" id="table_list">
+                                <thead>
+                                    <tr class="tops">
+                                        <th width="20px" style="text-align: center !important;"><input id="checkAll"
+                                                type="checkbox"></th>
+                                        <th style="">字段名称</th>
+                                        <th style="">字段长度</th>
+                                        <th style="">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 提示信息 -->
+    <div class="full-tip-box">
+        <span class="full-tip">
+            <span class="inner">
+                <i class="ico"></i>
+                <span class="text" data-id="label"></span>
+            </span>
+        </span>
+    </div>
+    <div id="propType" style="display: none">
+        <ul>
+            <li type="1">删除分类属性</li>
+        </ul>
+    </div>
+    <div class="pdialogDiv hide">
+        <% include dialog/frmDocPro.html %>
+        <!-- <% include dialog/frmDocAssign.html %>
+        <% include dialog/frmDocAudit.html %>
+        <% include dialog/frmPassword.html %>
+        <% include dialog/frmcombind.html %>
+        <% include dialog/frmTable.html %> -->
+    </div>
+
+    <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="js/jquery/jquery-1.12.4.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script> -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/bootstrap/jquery-migrate-1.2.1.js"></script>
+    <script src="js/jquery/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/zTree/js/jquery.ztree.core-3.4.min.js"></script>
+    <script type="text/javascript" src="js/zTree/js/jquery.ztree.excheck-3.4.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/magnify/dist/jquery.magnify.js"></script>
+    <script src="js/jquery/jquery.cookie.js"></script>
+    <script src="js/js-spark-md5/spark-md5.min.js"></script>
+
+    <!-- <script src="js/dataTable/colResizable-1.6.js"></script> -->
+    <script src="js/jquery.dataTables.js"></script>
+    <script src="js/bootstrap.dataTable.js"></script>
+    <script src="js/chineseFirstE.js"></script>
+    <script src="js/wistorm/localApi.js"></script>
+    <script src="js/system.js"></script>
+    <script src="js/wistorm/md5.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/handledata.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/htmlTemplate.js"></script>
+    <script src="js/csv2arr/papaparse.js"></script>
+    <script src="js/csv2arr/jschardet.js"></script>
+    <script src="js/csv2arr/csv2arr.js"></script>
+    <script src="js/csv2arr/xlsx.full.min.js"></script>
+
+    <!-- <script src="js/vendor/xlsx.full.min.js"></script>
+    <script src="js/csv2arr/xlsx.full.min.js"></script> -->
+
+    <script src="js/account.js"></script>
+    <script src="js/designSet.js"></script>
+    <script src="js/upload.js"></script>
+
+    <!-- <script src="js/pdf/generic/build/pdf.js"></script> -->
+</body>
+
+</html>

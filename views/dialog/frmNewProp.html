@@ -1,0 +1,67 @@
+<div id="divNewPro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" title="属性">
+    <form id="frmNewPro" class="form-horizontal">
+        <ul>
+            <li style="margin-top: 10px">
+                <label class="ellipsis ulLabel">名称</label>
+                <input id="newDocName" value="" class="form-control" style="height: 20px;width:70%;display: inline-block;" />
+            </li>
+            <li style="margin-top: 10px">
+                <label class="ellipsis ulLabel">档号</label>
+                <input id="did" value="" class="form-control"  style="height: 20px;width:70%;display: inline-block;"/>
+            </li>
+
+            <li style="margin-top: 10px">
+                <label class="ellipsis ulLabel" style="line-height: 48px;">位置</label>
+                <div class="quNumber">
+                    <span class="quNumberName">列号</span>
+                    <select class="form-control" id="lnum" style="width: 85%; padding:3px;font-size: 14px;height: 20px;">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="quNumber">
+                    <span class="quNumberName">左/右侧</span>
+                    <select class="form-control" id="ce" style="width: 85%;padding:3px;height: 20px;">
+                        <option value="1">左</option>
+                        <option value="2">右</option>
+                    </select>
+                </div>
+                <div class="quNumber">
+                    <span class="quNumberName">节号</span>
+                    <select class="form-control" id="jnum" style="width: 85%;padding:3px;font-size: 14px;height: 20px;">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="quNumber">
+                    <span class="quNumberName">层号</span>
+                    <select class="form-control" id="cnum" style="width: 85%;padding:3px;font-size: 14px;height: 20px;">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <!-- <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">1</option> -->
+                    </select>
+                </div>
+
+                <div class="quNumber" style="top: -2px;">
+                    <span class="quNumberName">本号</span>
+                    <input class="form-control" id="onum" value="0" style="width: 85%;padding:3px;height: 20px;">
+                </div>
+            </li>
+        </ul>
+        <ul id="custom-prop">
+
+        </ul>
+    </form>
+</div>
+
+<!-- <div id="divNewDoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" title="属性">
+    <form id="divNewDoc" class="form-horizontal">
+        <ul>
+            <li style="margin-top: 10px">
+                <label class="ellipsis">名称</label>
+                <input id="docName" value="" class="form-control" />
+            </li>
+        </ul>
+    </form>
+</div> -->
